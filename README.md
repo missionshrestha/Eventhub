@@ -7,6 +7,11 @@ Just testing to write the readme
 
 ## Tools Used:-
 
+- [Design](#design)
+
+        -Figma
+        -Canva
+
 - [Frontend](#frontend)
 
         - HTML
