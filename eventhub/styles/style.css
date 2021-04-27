@@ -1,0 +1,94 @@
+#navbarSupportedContent{
+  /* margin-right: 50px; */
+}
+.nav-item{
+  margin-left: 5px;
+}
+.navbar-nav{
+  margin-right:50px;
+}
+
+.btn-nav{
+background-color: #6b6bff;
+
+color: white;
+  border-radius: 14px;
+border:none;
+  padding: 0;
+
+  width:5rem;
+  height: 2rem;
+  margin-top: 4px;
+  margin-left: 8px
+}
+.btn-nav:hover{
+  background-color: blue;
+  font-weight: bold;
+  width: 5.3rem;
+
+}
+
+.nav-nv:hover{
+
+  font-weight: bold;
+font-size: 17px;
+
+}
+
+.navbar{
+
+background-color: #FEFFEC;;
+}
+.navbar-brand{
+  font-size:25px;
+}
+.navbar-brand:hover{
+  font-weight: bold;
+
+}
+.logo-img{
+  margin-right: 10px;
+  margin-left:20px;
+}
+.introduction{
+  background-color: rgba(133, 206, 222, 0.3);
+
+}
+.intro-text{
+  margin-top: 100px;
+}
+.btn-intro{
+background-color: #6b6bff;
+
+color: white;
+  border-radius: 14px;
+border:none;
+
+
+  width:8rem;
+  height: 3.5rem;
+  margin-top: 50px;
+
+}
+.btn-intro:hover{
+  background-color: blue;
+  font-weight: bold;
+  width: 9rem;
+
+
+}
+@media only screen and (max-width: 765px) {
+.introduction{
+    text-align: center;
+  }
+}
+footer{
+  color:white;
+  background-color: black;
+  text-align: center;
+  padding-top: 1.2%;
+  padding-bottom: 1%;
+}
+.foot-icon{
+  margin-left: 10px;
+}
