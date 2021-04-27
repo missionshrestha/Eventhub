@@ -1,5 +1,5 @@
-#navbarSupportedContent{
-  /* margin-right: 50px; */
+body{
+background-color: #FEFFEC;
 }
 .nav-item{
   margin-left: 5px;
@@ -37,7 +37,9 @@ font-size: 17px;
 
 .navbar{
 
-background-color: #FEFFEC;;
+background-color: #FEFFEC;
+position:fixed;
+width: 100%;
 }
 .navbar-brand{
   font-size:25px;
@@ -91,4 +93,18 @@ footer{
 }
 .foot-icon{
   margin-left: 10px;
+}
+.choose-us{
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.chooseus-row{
+  margin-top: 80px;
+  margin-left: 40px;
+  margin-right: 50px;
+}
+.chooseus-img{
+  height: 60px;
+  width: 60px;
 }
