@@ -14,9 +14,10 @@ $(".navbar-brand").hover(function() {
 $(".foot-icon").hover(function() {
 
   $(this).css("opacity","1");
+$(this).css("transform","scale(1.2)");
 
 }, function(){
   $(".foot-icon").css("opacity","");
-
+$(this).css("transform","");
 }
 );
