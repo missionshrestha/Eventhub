@@ -39,7 +39,7 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS =[
-    "core.apps.CoreConfig","users.apps.UsersConfig","events.apps.EventsConfig","reviews.apps.ReviewsConfig","reservations.apps.ReservationsConfig",
+    "core.apps.CoreConfig","users.apps.UsersConfig","events.apps.EventsConfig","reviews.apps.ReviewsConfig","reservations.apps.ReservationsConfig","lists.apps.ListsConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
