@@ -5,4 +5,6 @@ from . import models
 @admin.register(models.List)
 class ListAdmin(admin.ModelAdmin):
     """List Admin Model"""
-    pass
+    
+    list_display = ("name","user","count_event",)
+    search_fields = ("name",)

@@ -7,7 +7,11 @@ class List(core_models.TimeStampedModel):
 
     name = models.CharField(max_length = 80)
     user = models.ForeignKey('users.User',on_delete=models.CASCADE)
-    event = models.ManyToManyField('events.Event',blank =True)
+    event = models.ManyToManyField('events.Event',related_name="event",blank =True)
 
     def __str__(self):
         return self.name
+
+    def count_event(self):
+        return self.event.count()
+    count_event.short_description = "Number of events"
