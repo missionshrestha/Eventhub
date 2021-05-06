@@ -8,3 +8,4 @@ class ListAdmin(admin.ModelAdmin):
     
     list_display = ("name","user","count_event",)
     search_fields = ("name",)
+    filter_horizontal = ("event",)
