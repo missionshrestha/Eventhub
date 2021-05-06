@@ -56,7 +56,7 @@ class Photo(core_models.TimeStampedModel):
     """ Photo Model Defination """
 
     caption = models.CharField(max_length=100)
-    file = models.ImageField()
+    file = models.ImageField(upload_to = "event_photos")
     event = models.ForeignKey(Event,related_name="photos",on_delete=models.CASCADE)
     def __str__(self):
         return self.caption
