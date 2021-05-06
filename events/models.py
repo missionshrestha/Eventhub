@@ -34,11 +34,12 @@ class Event(core_models.TimeStampedModel):
     city = models.CharField(max_length=50)
     address = models.CharField(max_length=150)
     price = models.IntegerField()
+    event_date = models.DateField(null=True)
     event_start = models.TimeField()
     event_end = models.TimeField()
-    organizer = models.ForeignKey(user_models.User,on_delete=models.CASCADE)
-    event_type = models.ForeignKey(EventType,on_delete=models.SET_NULL,null=True)
-    event_rule = models.ManyToManyField(EventRule,blank=True)
+    organizer = models.ForeignKey(user_models.User,related_name='events',on_delete=models.CASCADE)
+    event_type = models.ForeignKey(EventType,related_name='events',on_delete=models.SET_NULL,null=True)
+    event_rule = models.ManyToManyField(EventRule,related_name='events',blank=True)
 
     def __str__(self):
         return self.name
@@ -49,7 +50,7 @@ class Photo(core_models.TimeStampedModel):
 
     caption = models.CharField(max_length=100)
     file = models.ImageField()
-    event = models.ForeignKey(Event,on_delete=models.CASCADE)
+    event = models.ForeignKey(Event,related_name="photos",on_delete=models.CASCADE)
     def __str__(self):
         return self.caption
 
