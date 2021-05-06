@@ -7,8 +7,8 @@ class Review(core_models.TimeStampedModel):
 
     review = models.TextField()
     rating = models.IntegerField()
-    user = models.ForeignKey("users.User",on_delete=models.CASCADE)
-    event = models.ForeignKey("events.Event",on_delete=models.CASCADE)
+    user = models.ForeignKey("users.User",related_name="reviews",on_delete=models.CASCADE)
+    event = models.ForeignKey("events.Event",related_name="reviews",on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.review} - {self.event}'

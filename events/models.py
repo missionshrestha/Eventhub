@@ -44,6 +44,13 @@ class Event(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def total_rating(self):
+        all_review = self.reviews.all()
+        all_rating = 0
+        for review in all_review:
+            all_rating += review.rating
+        return all_rating/len(all_review)
+
 
 class Photo(core_models.TimeStampedModel):
     """ Photo Model Defination """

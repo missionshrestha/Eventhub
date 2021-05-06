@@ -6,7 +6,7 @@ from . import models
 class TypeAdmin(admin.ModelAdmin):
     
     list_display = ("name","used_by")
-    
+
     def used_by(self,obj):
         return obj.events.count()
 
@@ -39,6 +39,7 @@ class EventAdmin(admin.ModelAdmin):
         "event_type",
         'no_of_rules',
         'count_photos',
+        'total_rating',
     )
 
     def no_of_rules(self,obj):        #for many to many field we cannot simply pit it in list_display instead we have to write our own function.
