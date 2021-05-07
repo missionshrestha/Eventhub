@@ -51,10 +51,11 @@ class Event(core_models.TimeStampedModel):
     def total_rating(self):
         all_review = self.reviews.all()
         all_rating = 0
-        for review in all_review:
-            all_rating += review.rating
-        return all_rating/len(all_review)
-
+        if len(all_review) > 0:
+            for review in all_review:
+                all_rating += review.rating
+            return all_rating/len(all_review)
+        return 0
 
 class Photo(core_models.TimeStampedModel):
     """ Photo Model Defination """
