@@ -1,6 +1,7 @@
 import random
 from django.core.management.base import BaseCommand
 from django_seed import Seed
+from django.contrib.admin.utils import flatten
 from events import models as event_models
 from users import models as user_models
 
@@ -23,6 +24,16 @@ class Command(BaseCommand):
             "organizer": lambda x:random.choice(all_users),
             "event_type": lambda x: random.choice(event_types),
             "price":lambda x:random.randint(0,500),
-        })
-        seeder.execute()
+         },
+        )
+        created_photos = seeder.execute()
+        created_clean = flatten(list(created_photos.values()))
+        for pk in created_clean:
+            event = event_models.Event.objects.get(pk=pk)
+            for i in range(3,random.randint(10,15)):
+                event_models.Photo.objects.create(
+                    caption = seeder.faker.sentence(),
+                    event = event,
+                    file = f'event_photos/{random.randint(1,30)}.png',
+                )
         self.stdout.write(self.style.SUCCESS(f"{number} Users Created!"))
