@@ -11,9 +11,16 @@ class TypeAdmin(admin.ModelAdmin):
     def used_by(self,obj):
         return obj.events.count()
 
+class PhotoInline(admin.TabularInline):
+    
+    model = models.Photo
+
 @admin.register(models.Event)
 class EventAdmin(admin.ModelAdmin):
     """Event admin defination"""
+
+    inlines = (PhotoInline,)
+
     fieldsets = (
         (
             "Basic Info",
@@ -43,6 +50,7 @@ class EventAdmin(admin.ModelAdmin):
         'total_rating',
     )
 
+    raw_id_fields = ("organizer",)
     def no_of_rules(self,obj):        #for many to many field we cannot simply pit it in list_display instead we have to write our own function.
         return obj.event_rule.count()
 
