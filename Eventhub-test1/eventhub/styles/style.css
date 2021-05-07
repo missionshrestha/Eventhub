@@ -1,0 +1,170 @@
+body{
+background-color: #FEFFEC;
+}
+.navbar{
+
+background-color: #FEFFEC;
+position:fixed;
+width: 100%;
+}
+.navbar-nav{
+  margin-right:50px;
+}
+.navbar-brand{
+  font-size:25px;
+}
+.navbar-brand:hover{
+  font-weight: bold;
+
+}
+.navbar-logo-img{
+  margin-right: 10px;
+  margin-left:20px;
+  opacity: 0.8;
+  }
+.nav-item{
+  margin-left: 5px;
+}
+
+
+.btn-nav{
+background-color: #6b6bff;
+
+color: white;
+  border-radius: 14px;
+border:none;
+  padding: 0;
+
+  width:5rem;
+  height: 2rem;
+  margin-top: 4px;
+  margin-left: 8px
+}
+.btn-nav:hover{
+  background-color: blue;
+  font-weight: bold;
+  width: 5.3rem;
+
+}
+
+.nav-item-nv:hover{
+
+  font-weight: bold;
+font-size: 17px;
+
+}
+
+
+
+
+
+
+.introduction{
+  background-color: rgba(133, 206, 222, 0.3);
+}
+.intro-img{
+  width:50%;
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+.intro-text{
+  margin-top: 175px;
+  margin-left: 150px;
+}
+.btn-intro{
+background-color: #6b6bff;
+
+color: white;
+  border-radius: 14px;
+border:none;
+
+
+  width:8rem;
+  height: 3.5rem;
+  margin-top: 50px;
+
+}
+.btn-intro:hover{
+  background-color: blue;
+  font-weight: bold;
+  width: 9rem;
+
+
+}
+@media only screen and (max-width: 765px) {
+.introduction{
+    text-align: center;
+  }
+  .intro-img{
+    width:100%;
+  }
+}
+
+
+.choose-us{
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.chooseus-row{
+    margin-left: 40px;
+  margin-right: 50px;
+  margin-top:110px;
+}
+.chooseus-img{
+  height: 60px;
+  width: 60px;
+}
+.why-choose-us{
+  position: relative;
+
+}
+.why-choose-us::after{
+
+content: "";
+display: block;
+position: absolute;
+
+border:  solid #6A77ED;
+border-top: none;
+border-width: thick;
+width: 14%;
+
+left: 43.6%;
+right: 41.04%;
+top: 138%;
+
+}
+/*achievement*/
+.achievement-slogan{
+  margin-left: 10%;
+}
+
+.achievement-img{
+  float: left;
+  height:80px;
+  width: 80px;
+}
+
+.achieve{
+  padding-top: 0;
+}
+.achievement-data{
+  padding-left: 10%;
+}
+
+/* footer */
+footer{
+  color:white;
+  background-color: black;
+  text-align: center;
+  padding-top: 1.2%;
+  padding-bottom: 1%;
+}
+.foot-icon{
+  padding-left: 5px;
+  padding-right: 5px;
+  opacity: 0.8;
+}
+
+
