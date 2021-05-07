@@ -44,6 +44,10 @@ class Event(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def save(self,*args,**kwargs):  # intercepting the data and capitalizing the data before save it into the database
+        self.city = str.capitalize(self.city)
+        super().save(*args,**kwargs)
+
     def total_rating(self):
         all_review = self.reviews.all()
         all_rating = 0
