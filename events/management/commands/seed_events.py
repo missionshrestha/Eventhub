@@ -19,6 +19,7 @@ class Command(BaseCommand):
         seeder = Seed.seeder()
         all_users = user_models.User.objects.all()
         event_types = event_models.EventType.objects.all()
+        rules = event_models.EventRule.objects.all()
         seeder.add_entity(event_models.Event,number,{
             "name": lambda x: seeder.faker.address(),
             "organizer": lambda x:random.choice(all_users),
@@ -36,4 +37,10 @@ class Command(BaseCommand):
                     event = event,
                     file = f'event_photos/{random.randint(1,30)}.png',
                 )
+            
+            for r in rules:
+                num = random.randint(0,15)
+                if num % 2 == 0:
+                    event.event_rule.add(r)
+
         self.stdout.write(self.style.SUCCESS(f"{number} Users Created!"))
