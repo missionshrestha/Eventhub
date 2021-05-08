@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block page_name %}
+    Events
+{% endblock page_name%}
+
+
+{% block content %}
+    {% for event in event %}
+        <h3>{{event.name}}</h3>
+    {% endfor %}
+{% endblock content %}
