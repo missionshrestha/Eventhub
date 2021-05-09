@@ -1,0 +1,167 @@
+
+/* Yeha tag ra classes haru html ma elements ko order wise arrange gareko xa */
+
+body {
+  background-image: linear-gradient(to right, #7579ff, #b224ef);
+  padding: 1%;
+  text-align: center;
+}
+
+.container {
+  margin: 0 5%;
+  padding: 3%;
+  text-align: center;
+  display: flex;
+}
+
+.cont-1 {
+  width: 40%;
+  background-color: #419CD6;
+  height: 40rem;
+}
+
+.welcome-image {
+  margin-top: 8%;
+}
+
+.signup-intro {
+  padding: 0;
+  margin-top: 0;
+}
+
+.signup-button {
+  background-color: #E5E5E5;
+  width: 45%;
+  color: black;
+  margin-top: 10%;
+}
+
+.cont-2 {
+  width: 60%;
+  background-color: #E5E5E5;
+  height: 40rem;
+}
+
+.invisible-signup-button {
+  display: none;
+}
+
+.login-image {
+  padding: 0;
+  text-align: center;
+  margin: 8% 0 1% 0;
+}
+
+.login-welcome-text h1, h2 {
+  margin: 1%;
+  padding: 0;
+}
+
+input[type=text], input[type=password] {
+  width: 70%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: #ACDAF8;
+  color: black;
+  border-radius: 25px;
+}
+
+/* icons */
+.fa-envelope, .fa-key {
+  display: inline-block;
+  text-align: left;
+  margin-right: 1%;
+  font-size: 2rem;
+}
+
+.checkbox-Login {
+  text-align: center;
+  display: block;
+}
+
+/* this will set a style for sabai buttons */
+
+button {
+  background-color: #419CD6;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  border-radius: 25px;
+  text-align: center;
+}
+
+/* thiss add a hover effect for sabai buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+.submit-cancel {
+  text-align: center;
+  display: block;
+  margin: 2%;
+}
+
+/* making cancel button (red) */
+.cancelbtn {
+  background-color: #f44336;
+}
+
+/* The "Forgot password" text */
+.forget-psw {
+  text-align: center;
+}
+
+span.psw {
+  float: none;
+  padding-top: 16px;
+}
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+
+  .cont-1 {
+    display: none;
+  }
+
+  .cont-2 {
+    width: 100%;
+  }
+
+  .invisible-signup-button {
+    display: inline-block;
+    text-align: center;
+    width: 70%;
+  }
+
+  button {
+    background-color: #419CD6;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+    border-radius: 25px;
+    text-align: center;
+  }
+
+    .cancelbtn {
+      width: 80%;
+    }
+
+  span.psw {
+    display: block;
+    float: none;
+    padding-top: 5px;
+  }
+
+}
