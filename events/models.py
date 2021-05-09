@@ -56,6 +56,10 @@ class Event(core_models.TimeStampedModel):
                 all_rating += review.rating
             return all_rating/len(all_review)
         return 0
+    
+    class Meta:
+        ordering = ['-created']
+
 
 class Photo(core_models.TimeStampedModel):
     """ Photo Model Defination """
