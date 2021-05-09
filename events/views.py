@@ -1,3 +1,4 @@
+'''
 from django.shortcuts import render,redirect
 from django.core.paginator import Paginator,EmptyPage
 from . import models
@@ -12,3 +13,20 @@ def all_events(request):
         return render(request,"events/all_events.html",{"page":events})
     except EmptyPage:
         return redirect('/events')
+
+'''
+
+from django.views.generic import ListView
+from . import models
+
+class EventView(ListView):
+    
+    '''Eventview defination'''
+    model = models.Event
+    paginate_by = 6
+    paginate_orphans = 3
+    
+
+
+
+
