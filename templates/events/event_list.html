@@ -6,8 +6,12 @@
 
 
 {% block content %}
-    {% for event in object_list %}
-        <h3>{{event.name}}</h3>
+    {% for event in events %}
+        <h3>
+            <a href="{% url "events:event_detail" event.pk %}">
+                {{event.name}}
+            </a>
+        </h3>
     {% endfor %}
 
     <h5>

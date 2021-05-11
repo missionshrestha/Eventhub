@@ -20,6 +20,7 @@ from django.conf.urls.static import static #It helps us serve static file.
 
 urlpatterns = [
     path("",include("core.urls",namespace="")),
+    path("events/",include("events.urls",namespace="events")),
     path('admin/', admin.site.urls),
 ]
 

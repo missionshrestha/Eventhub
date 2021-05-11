@@ -16,7 +16,9 @@ def all_events(request):
 
 '''
 
+from django.shortcuts import render
 from django.views.generic import ListView
+
 from . import models
 
 class EventView(ListView):
@@ -25,7 +27,12 @@ class EventView(ListView):
     model = models.Event
     paginate_by = 6
     paginate_orphans = 3
+    context_object_name = "events"
     
+
+def event_detail(request,pk):
+    print(pk)
+    return render(request,"events/event_detail.html")
 
 
 
