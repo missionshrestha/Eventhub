@@ -15,8 +15,8 @@ def all_events(request):
         return redirect('/events')
 
 '''
-
-from django.shortcuts import render,redirect,reverse
+from django.http import Http404
+from django.shortcuts import render
 from django.views.generic import ListView
 
 from . import models
@@ -35,7 +35,7 @@ def event_detail(request,pk):
         event = models.Event.objects.get(pk=pk)
         return render(request,"events/event_detail.html",{"event":event})
     except models.Event.DoesNotExist:
-        return redirect(reverse("core:event"))    
+        raise Http404()
 
 
 
