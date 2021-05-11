@@ -16,7 +16,7 @@ def all_events(request):
 
 '''
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect,reverse
 from django.views.generic import ListView
 
 from . import models
@@ -31,8 +31,11 @@ class EventView(ListView):
     
 
 def event_detail(request,pk):
-    print(pk)
-    return render(request,"events/event_detail.html")
+    try:
+        event = models.Event.objects.get(pk=pk)
+        return render(request,"events/event_detail.html",{"event":event})
+    except models.Event.DoesNotExist:
+        return redirect(reverse("core:event"))    
 
 
 
