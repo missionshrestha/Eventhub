@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from core import models as core_models
 from users import models as user_models
 
@@ -47,6 +48,9 @@ class Event(core_models.TimeStampedModel):
     def save(self,*args,**kwargs):  # intercepting the data and capitalizing the data before save it into the database
         self.city = str.capitalize(self.city)
         super().save(*args,**kwargs)
+
+    def get_absolute_url(self):
+        return reverse("events:event_detail",kwargs={"pk":self.pk})
 
     def total_rating(self):
         all_review = self.reviews.all()
