@@ -38,9 +38,26 @@ def event_detail(request,pk):
         raise Http404()
 
 def search(request):
-    city = request.GET.get("city")
+    city = request.GET.get("city","Anywhere")
     city = str.capitalize(city)
-    return render(request, "events/search.html",{"city":city})
+    address = request.GET.get("address","Anywhere")
+    event_type = int(request.GET.get("event_type",0))
+    event_types = models.EventType.objects.all()
+    price = int(request.GET.get("price",0))
+    super_organizer = request.GET.get("super_organizer",False)
+    choices = {
+        "event_types":event_types,
+    }
+
+    form = {
+        "s_event_type":event_type,
+        "s_city":city,
+        "price":price,
+        "address":address,
+        "super_organizer":super_organizer,
+    }
+    
+    return render(request, "events/search.html",{**form,**choices})
 
 
 
