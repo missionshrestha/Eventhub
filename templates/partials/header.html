@@ -5,4 +5,7 @@
             <a href="#">Login</a>
         </li>
     </ul>
+    <form method="get" action="{% url "events:search" %}">
+        <input name="city" placeholder="Search by city" />
+    </form>
 </header>

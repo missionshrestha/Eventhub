@@ -37,6 +37,11 @@ def event_detail(request,pk):
     except models.Event.DoesNotExist:
         raise Http404()
 
+def search(request):
+    city = request.GET.get("city")
+    city = str.capitalize(city)
+    return render(request, "events/search.html",{"city":city})
+
 
 
 
