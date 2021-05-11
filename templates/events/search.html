@@ -41,6 +41,11 @@
         <button>Search</button>
     </form>
 
+    <h2>Results:</h2>
+    {% for event in events %}
+        <h3>{{event}}</h3>
+    {% endfor %}
+
 
 
 {% endblock content %}
