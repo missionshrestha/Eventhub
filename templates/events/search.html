@@ -10,8 +10,37 @@
 
 {% block content %}
     <h2>Search</h2>
-    <h4>Searching by {{city}}</h4>
 
+    <form method="get" action="{% url "events:search" %}">
+        {{form.as_p}}
+        <button>Search</button>
+    </form>
+
+    <h2>Results:</h2>
+    {% for event in events %}
+        <h3>{{event}}</h3>
+    {% endfor %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %}
+    {% block content %}
+    <h2>Search</h2>
+    
     <form method="get" action="{% url "events:search" %}">
         <div>
             <label for="address">Address</label>
@@ -49,3 +78,4 @@
 
 
 {% endblock content %}
+{% endcomment %}

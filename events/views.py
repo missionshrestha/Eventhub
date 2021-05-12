@@ -19,7 +19,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import ListView
 
-from . import models
+from . import models,forms
 
 class EventView(ListView):
     
@@ -37,6 +37,51 @@ def event_detail(request,pk):
     except models.Event.DoesNotExist:
         raise Http404()
 
+
+def search(request):
+    
+    city = request.GET.get("city")
+    if city:
+        form = forms.SearchForm(request.GET)
+        if form.is_valid():
+            address = form.cleaned_data.get("address")
+            city = form.cleaned_data.get("city")
+            event_type =form.cleaned_data.get("event_type")
+            price = form.cleaned_data.get("price")
+            super_organizer = form.cleaned_data.get("super_organizer")
+
+            filter_args = {}
+
+            if address != "Anywhere":
+                filter_args["address__startswith"] = address
+
+            if city != "Anywhere":
+                filter_args["city__startswith"] = city
+
+            if event_type is not None:
+                filter_args["event_type"] = event_type
+
+            if price is not None:
+                filter_args["price__lte"] = price
+
+            if super_organizer is True:
+                filter_args["organizer__superorganizer"] = True
+
+            
+            events = models.Event.objects.filter(**filter_args)
+    
+    else:
+
+        form = forms.SearchForm()
+
+    return render(request, "events/search.html",{"form":form,"events":events})
+    
+    
+
+
+
+'''Implementing searching without using django form'''
+'''
 def search(request):
     city = request.GET.get("city","Anywhere")
     city = str.capitalize(city)
@@ -72,7 +117,4 @@ def search(request):
 
     events = models.Event.objects.filter(**filter_args)
     return render(request, "events/search.html",{**form,**choices,"events":events,"price":price,"super_organizer":super_organizer,})
-
-
-
-
+'''
