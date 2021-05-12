@@ -18,7 +18,7 @@ def all_events(request):
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import ListView
-
+from django.core.paginator import Paginator
 from . import models,forms
 
 class EventView(ListView):
@@ -68,13 +68,17 @@ def search(request):
                 filter_args["organizer__superorganizer"] = True
 
             
-            events = models.Event.objects.filter(**filter_args)
-    
+            qs = models.Event.objects.filter(**filter_args)
+            paginator = Paginator(qs,6,orphans=3)
+            page = request.GET.get("page",1)
+            events = paginator.get_page(page)
+            return render(request, "events/search.html",{"form":form,"events":events})
+
     else:
 
         form = forms.SearchForm()
 
-    return render(request, "events/search.html",{"form":form,"events":events})
+    return render(request, "events/search.html",{"form":form,})
     
     
 
