@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import fields
 from django.forms.fields import EmailField
 from . import models
 class LoginForm(forms.Form):
@@ -18,7 +19,7 @@ class LoginForm(forms.Form):
         except models.User.DoesNotExist:
             self.add_error("email",forms.ValidationError("User does not exist"))
 
-
+'''
 class SignUpForm(forms.Form):
     first_name = forms.CharField(max_length=50)
     last_name = forms.CharField(max_length=50)
@@ -54,4 +55,29 @@ class SignUpForm(forms.Form):
         user.first_name = first_name
         user.last_name =last_name
         user.save()
-        
+'''
+
+class SignUpForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = ["first_name","last_name","email"]
+    
+    password = forms.CharField(widget=forms.PasswordInput)
+    password_re = forms.CharField(widget=forms.PasswordInput,label="Confirm Password")
+
+    def clean_password_re(self):
+        password = self.cleaned_data.get("password")
+        password_re = self.cleaned_data.get("password_re")
+
+        if password != password_re:
+            raise forms.ValidationError("Password doesn't match")
+        else:
+            return password
+
+    def save(self,*args,**kwargs):
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        user = super().save(commit=False)
+        user.username = email
+        user.set_password(password)
+        user.save()
