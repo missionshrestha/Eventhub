@@ -1,3 +1,4 @@
+from users import models
 from django.contrib import auth
 from django.http.response import HttpResponseRedirectBase
 from django.views import View
@@ -64,5 +65,18 @@ class SignUpView(FormView):
         if user is not None:
             login(self.request,user)
         
+        user.verify_email()
         return super().form_valid(form)
-        
+    
+def complete_verification(request,key):
+    try:
+        user = models.User.objects.get(email_secret=key)
+        user.email_verified = True
+        user.email_secret = ""
+        user.save()
+        # success message here
+    except models.User.DoesNotExist:
+        # failed message here
+        pass
+
+    return redirect(reverse("core:event"))

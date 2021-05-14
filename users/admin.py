@@ -32,4 +32,6 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "is_staff",
         "superorganizer",
+        "email_verified",
+        "email_secret",
     )
