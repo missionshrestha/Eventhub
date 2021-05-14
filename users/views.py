@@ -49,3 +49,9 @@ def log_out(request):
     logout(request)
     return redirect(reverse("core:event"))
  
+ 
+class SignUpView(FormView):
+    
+    template_name = "users/signup.html"
+    form_class = forms.SignUpForm
+    success_url = reverse_lazy("core:event")
