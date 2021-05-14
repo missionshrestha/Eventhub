@@ -1,6 +1,10 @@
     <a href="{% url "core:event" %}">Eventhub</a>
     <ul>
-        <li>
-            <a href="{% url "users:login" %}">Login</a>
-        </li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url "users:login" %}">Log out</a></li>
+        {% else %}
+        <li><a href="{% url "users:login" %}">Login</a></li>
+
+        {% endif %}
+
     </ul>
