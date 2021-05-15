@@ -19,11 +19,13 @@
 <body>
     <header>
         {% include "partials/nav.html" %}
+        {%comment%}
         {% block search-bar %}
         <form method="get" action="{% url "events:search" %}">
             <input name="city" placeholder="Search by city" />
         </form>
         {% endblock search-bar %}
+        {%endcomment%}
     </header>
 
 

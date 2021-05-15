@@ -143,7 +143,7 @@ border:none;
 <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid">
       
-          <a class="navbar-brand" href="{% url "core:event" %}"><img class="navbar-logo-img" src="{%static 'images/homepage/favicon1.svg' %}" alt="" width="55" height="46">EVENTHUB</a>
+          <a class="navbar-brand" href="{% url "core:home" %}"><img class="navbar-logo-img" src="{%static 'images/homepage/favicon1.svg' %}" alt="" width="55" height="46">EVENTHUB</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -157,10 +157,10 @@ border:none;
                 <a class="nav-item-nv nav-link " href="{% url "core:event" %}">EVENTS</a>
               </li>
               <li class="nav-item nav-item-3" >
-                <a class="nav-item-nv nav-link" href="#">JOIN</a>
+                <a class="nav-item-nv nav-link" href="{% url "users:signup" %}">JOIN</a>
               </li>
               <li class="nav-item">
-                <form method="get" action="/page2">
+                <form method="get" action="/users/login">
                     <button class="btn-nav" type="submit">LOG IN</button>
                 </form>
               </li>
