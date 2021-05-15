@@ -16,6 +16,7 @@ class CustomUserAdmin(UserAdmin):
                     "gender",
                     "bio",
                     "superorganizer",
+                    "login_method",
                 )
             }
         ),
@@ -34,4 +35,5 @@ class CustomUserAdmin(UserAdmin):
         "superorganizer",
         "email_verified",
         "email_secret",
+        "login_method",
     )
