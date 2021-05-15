@@ -1,4 +1,5 @@
-    <a href="{% url "core:event" %}">Eventhub</a>
+{%comment%}
+<a href="{% url "core:event" %}">Eventhub</a>
     <ul>
         {% if user.is_authenticated %}
         <li><a href="{% url "users:logout" %}">Log out</a></li>
@@ -8,3 +9,166 @@
         {% endif %}
 
     </ul>
+    {% endcomment %}
+{% load static %}
+<style>
+.navbar{
+    z-index: 1000;
+    background-color: #FEFFEC;
+    /* position:fixed; */
+    width: 100%;
+    /* display: none; */
+}
+.navbar-nav{
+  margin-right:50px;
+}
+.navbar-brand{
+  font-size:25px;
+}
+.navbar-brand:hover{
+  font-weight: bold;
+
+}
+.navbar-logo-img{
+  margin-right: 10px;
+  margin-left:20px;
+  opacity: 0.8;
+  }
+  .nav-item-1:hover, .nav-item-2:hover{
+    margin-left: -4px;
+  }
+.nav-item-3:hover{
+  margin-left: -3px;
+}
+
+.btn-nav{
+background-color: #6b6bff;
+
+color: white;
+  border-radius: 14px;
+border:none;
+  padding: 0;
+
+  width:5rem;
+  height: 2rem;
+  margin-top: 4px;
+  margin-left: 8px;
+}
+.btn-nav:hover{
+  position: relative;
+
+  background-color: blue;
+  font-weight: bold;
+  width: 5.3rem;
+  left: 3px;
+margin-left: 3px;
+}
+@media only screen and (max-width: 990px) {
+  .btn-nav{
+    margin-left:0;
+
+  }
+
+  .btn-nav:hover{
+    left:-3px;
+  }
+}
+
+.nav-item-nv:hover{
+
+  font-weight: bold;
+  font-size: 16px;
+/* font-size: 17px; */
+margin-left: 0px;
+
+}
+
+.introduction{
+  background-color: rgba(133, 206, 222, 0.3);
+}
+.intro-img{
+  width:50%;
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+
+.intro-text{
+  margin-top: 180px;
+  margin-left: 150px;
+  margin-bottom: 50px;
+}
+@media only screen and (max-width: 767px) {
+.intro-text{
+position: relative;
+  right: 60px;
+  bottom: 130px;
+}
+}
+.btn-intro{
+background-color: #6b6bff;
+
+color: white;
+  border-radius: 14px;
+border:none;
+
+
+
+  width:8rem;
+  height: 3.5rem;
+  margin-top: 50px;
+
+}
+.btn-intro:hover{
+  position: relative;
+  right: 8px;
+  background-color: blue;
+  font-weight: bold;
+  width: 9rem;
+
+
+}
+@media only screen and (max-width: 765px) {
+.introduction{
+    text-align: center;
+  }
+  .intro-img{
+    width:100%;
+  }
+}
+</style>
+ 
+{% if user.is_authenticated %}
+        <li><a href="{% url "users:logout" %}">Log out</a></li>
+{% else %}
+<nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+      
+          <a class="navbar-brand" href="{% url "core:event" %}"><img class="navbar-logo-img" src="{%static 'images/homepage/favicon1.svg' %}" alt="" width="55" height="46">EVENTHUB</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+      
+              <li class="nav-item nav-item-1">
+                <a class="nav-item-nv nav-link " href="#">ABOUT US</a>
+              </li>
+              <li class="nav-item nav-item-2">
+                <a class="nav-item-nv nav-link " href="{% url "core:event" %}">EVENTS</a>
+              </li>
+              <li class="nav-item nav-item-3" >
+                <a class="nav-item-nv nav-link" href="#">JOIN</a>
+              </li>
+              <li class="nav-item">
+                <form method="get" action="/page2">
+                    <button class="btn-nav" type="submit">LOG IN</button>
+                </form>
+              </li>
+      
+      
+            </ul>
+      
+          </div>
+        </div>
+      </nav>
+      {% endif %}
