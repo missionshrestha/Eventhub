@@ -1,3 +1,4 @@
+{% comment %}
 <div>
     <a>
         Continue with Google
@@ -5,4 +6,40 @@
     <a  href="{% url 'users:github-login' %}">
         Continue with Github
     </a>
+</div>
+{%endcomment%}
+<style>
+    .github{
+        margin-bottom: 15px;
+    }
+    .github-button:hover{
+        transform: translateY(1px);
+    }
+    .github-button:focus{
+        transform: translateY(-1px);
+    }
+    .seperator{
+        display: flex;
+        flex-flow:row;
+        font-size: larger;
+        justify-content: center;
+        align-items: center;
+        vertical-align: center;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="github">
+    <a href="{% url 'users:github-login' %}">
+        <button class="btn github-button" style="background-color: #419CD6; width:25rem; border-radius: 10px;" type="submit">
+            <span style="font-size: 15px; vertical-align: center; color: white;">
+                <i class="fab fa-github fa-1x" style="margin-right: 5px;"></i>
+                Continue with Github
+            </span>
+        </button>
+    </a>
+</div>
+<div class="seperator">
+    <hr width="110px" style="display: inline-block; margin-right: 20px;">
+    <b>OR</b>
+    <hr width="110px" style="display: inline-block; margin-left: 20px;">
 </div>
