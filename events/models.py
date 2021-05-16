@@ -58,9 +58,13 @@ class Event(core_models.TimeStampedModel):
         if len(all_review) > 0:
             for review in all_review:
                 all_rating += review.rating
-            return all_rating/len(all_review)
+            return round(all_rating/len(all_review),2)
         return 0
-    
+
+    def first_photo(self):
+        photo, = self.photos.all()[:1]   # comma will get the first ephoto from the query set
+        return photo.file.url
+
     class Meta:
         ordering = ['-created']
 
@@ -73,4 +77,7 @@ class Photo(core_models.TimeStampedModel):
     event = models.ForeignKey(Event,related_name="photos",on_delete=models.CASCADE)
     def __str__(self):
         return self.caption
+
+
+
 

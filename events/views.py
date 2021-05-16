@@ -25,8 +25,8 @@ class EventView(ListView):
     
     '''Eventview defination'''
     model = models.Event
-    paginate_by = 6
-    paginate_orphans = 3
+    paginate_by = 8
+    paginate_orphans = 4
     context_object_name = "events"
     
 

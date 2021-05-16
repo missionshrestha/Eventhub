@@ -1,0 +1,277 @@
+{%comment%}
+<h3>
+    <a href="{% url " events:event_detail" event.pk %}">
+        <!-- <img src="{{event.first_photo}}" /> -->
+        {{event.name}}
+    </a>
+</h3>
+{%endcomment%}
+
+{% load static %}
+
+<style>
+    body{
+    background-color: #FFFFFF;
+    position: relative;
+    overflow-x: hidden;
+    }
+
+    .events {
+        padding-top: 80px;
+        padding-left: 0%;
+        margin-left: 20px;
+
+        /* padding-right: 100px; */
+    }
+
+    .row1 {
+        padding-top: 5%;
+        margin-left: 20px;
+    }
+
+    /* .topic-events{
+      padding-left: 5%;
+      padding-top: 3%;
+    } */
+
+    /* .events-list{
+      padding-left: ;
+      position: relative;
+    } */
+
+    .card {
+        border-radius: 6%;
+        background-color: #3686D1;
+        color: white;
+        width: 18rem;
+        transition: 0.5s ease;
+        cursor: pointer;
+        box-shadow: -20px 30px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: -20px 30px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .event-date {
+        border-radius: 100%;
+        background-color: #419CD6;
+        height: 100px;
+        width: 100px;
+        position: absolute;
+        left: 30%;
+        bottom: 50%;
+        color: #414141;
+        box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .event-date-text {
+        position: absolute;
+        left: 33%;
+        bottom: 30%;
+
+    }
+
+    .event-date-text-year {
+        position: absolute;
+        left: 20%;
+        bottom: 10%;
+    }
+
+    .card-title {
+        text-decoration: underline;
+        text-decoration-color: white;
+        padding-top: 15%;
+    }
+
+    .verified {
+        position: absolute;
+        margin-left: 15px;
+    }
+
+    .learn {
+        float: right;
+        text-decoration: none;
+        color: white;
+    }
+
+    .learn:hover {
+        color: yellow;
+    }
+
+    .rating {
+        transform: scale(1.2);
+
+        position: absolute;
+        left: 28px;
+    }
+
+    .rating-star {
+        position: relative;
+        bottom: 3px;
+        right: 5px;
+    }
+
+    /*next- page*/
+
+    .next-event {
+        text-align: center;
+        line-height: 5;
+        margin-top: 2%;
+        margin-bottom: 100px;
+    }
+
+    .text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+    .text-limit-description{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5; /* number of lines to show */
+        -webkit-box-orient: vertical;
+
+    }
+
+
+    @media screen and (max-width: 1000px) {
+        .card {
+            margin-bottom: 40px;
+        }
+    }
+
+    @media screen and (min-width: 1200px) and (max-width: 1250px) {
+        .card {
+            transform: scale(0.8);
+        }
+
+        .card:hover {
+            transform: scale(0.9);
+        }
+
+        .row1 {
+            margin-left: -30px;
+        }
+
+    }
+
+    @media screen and (min-width: 992px) and (max-width: 1200px) {
+        .card {
+            transform: scale(0.7);
+        }
+
+        .card:hover {
+            transform: scale(0.75);
+        }
+
+        .row1 {
+            margin-left: -60px;
+        }
+
+    }
+
+    @media screen and (max-width: 992px) {
+        .row1 {
+            position: relative;
+            left: 5%;
+        }
+    }
+
+    @media screen and (min-width: 600px) and (max-width: 767px) {
+        .row1 {
+            position: relative;
+            left: 25%;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .row1 {
+            position: relative;
+            left: 13%;
+        }
+    }
+
+    .bottomleft {
+        position: absolute;
+
+        bottom: 0;
+        left: 0;
+        z-index: -1
+    }
+
+    .topright {
+        position: absolute;
+
+        top: 150px;
+        right: 0;
+        z-index: -1;
+
+    }
+
+
+    @media screen and (max-width: 740px) {
+        span {
+            color: white;
+        }
+
+    }
+</style>
+
+{% if forloop.counter == 1 %}
+<img class="bottomleft" src="{% static 'images/event/bottomleft.svg' %}" alt="">
+<img class="topright" src="{% static 'images/event/topright.svg' %}" alt="">
+<div class="container-fluid events">
+    <h1 class="topic-events">Events:</h1>
+{% endif %}
+
+{% if  forloop.counter == 1 %}
+    <div class="row row1">
+    {% endif %}
+
+    {% if  forloop.counter == 5 %}
+    <div class="row row1">
+    {% endif %}
+
+        <div class="col-lg-3 col-md-6 events-list">
+            <div class="card">
+                <img style="border-radius: 20px; height: 200px;" src="{{event.first_photo}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <div class="event-date">
+                        <p class="event-date-text"><b> {{ forloop.counter }}  May</b></p>
+                        <p class="event-date-text-year">12-2021</p>
+
+                    </div>
+                    {% if event.organizer.superorganizer %}
+                    <img class="verified" src="{%static 'images/event/verified.svg' %}">
+                    {% endif %}
+                    <h5 class="card-title text">
+                        {{event.name}}
+                    </h5>
+                    <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra pulvinar ac
+                        tincidunt id nisi, libero. Turpis amet, sodales cras ornare non adipiscing. Fusce nec sed ipsu
+                    </p> -->
+                    <p class="card-text text-limit-description">
+                        {{event.description}}
+                    </p>
+                    <p class="rating"><img class="rating-star" src="{%static 'images/event/star.svg' %}">{{event.total_rating}}</p>
+
+                        <a class="learn" href="{% url "events:event_detail" event.pk %}">Learn more
+                            <img src="{%static 'images/event/arrow.svg'%}" alt=""></a>
+                </div>
+            </div>
+
+        </div>
+        {% if  forloop.counter == 4 %}
+        </div>
+        {% endif %}
+        {% if  forloop.counter == 8%}
+        </div>
+        {% endif %}
+    {% if forloop.counter == 8 %}
+    </div>
+    {% endif %}
