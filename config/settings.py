@@ -140,9 +140,8 @@ MEDIA_ROOT = BASE_DIR.joinpath('uploads')   # for the upload that we do on the p
 MEDIA_URL = "/media/" #requires absolute path ( so forward slash) # we are connecting the directory uploads with the media
 
 # email configuration
-
 EMAIL_HOST = "smtp.mailgun.org"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
-EMAIL_FROM = "eventhub@sandbox1975be6af6b44f489ce7a43e358600ee.mailgun.org"
+EMAIL_FROM = "event-hub@sandbox1975be6af6b44f489ce7a43e358600ee.mailgun.org"

@@ -7,6 +7,10 @@
 
 {% block content %}
 <style>
+:root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
+}
     body {
         background-color: #FEFFEC;
         overflow-x: hidden;
@@ -417,14 +421,14 @@ position: relative;
                 <h1>Discover the Events</h1>
                 <h3>Everything you need</h3>
                 <form method="get" action="/users/signup">
-                    <a style="text-decoration: none;" href="{% url "users:signup" %}"><button class="btn-intro" type="submit">JOIN NOW</button></a>
+                    <a style="text-decoration: none;" href="{% url "users:signup" %}"><button class="btn-intro animate__animated animate__bounce" type="submit">JOIN NOW</button></a>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <div class="choose-us">
-    <h1 class="why-choose-us">Why choose US?</h1>
+    <h1 class="why-choose-us animate__animated animate__animate__backInDown">Why choose US?</h1>
     <div class="container-fluid">
         <div class="row chooseus-row">
             <div class="col-lg-4 choose-us-element">
@@ -537,7 +541,7 @@ position: relative;
     <img class="organize-last-first-img" src="{%static 'images/homepage/Vector.svg' %}" alt="">
     <h2 class="organize-last-text">Organize your events with <br>EventHub</h2>
     <form method="get" action="/users/signup">
-        <a style="text-decoration: none;" href="{% url "users:signup" %}"><button class="organize-last-btn" type="submit">Join Now</button></a>
+        <a style="text-decoration: none;" href="{% url "users:signup" %}"><button class="organize-last-btn animate__animated animate__bounceIn animate__slow animate__infinite" type="submit">Join Now</button></a>
     </form>
     <img class="organize-last-second-img" src="{%static 'images/homepage/Vector1.svg' %}" alt="">
 </div>

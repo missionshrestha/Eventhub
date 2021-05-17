@@ -39,13 +39,17 @@ class User(AbstractUser):
     email_verified = models.BooleanField(default=False)
     email_secret = models.CharField(max_length=30,default="",blank=True)
     login_method = models.CharField(max_length=50,choices=LOGIN_CHOICES,default=LOGIN_EMAIL)
+    
     def verify_email(self):
         if self.email_verified is False:
             secret = uuid.uuid4().hex[:30]
             self.email_secret = secret
+            # print("--------------------------------------")
+            # print(self.email)
+            # print("________________________________________")
             html_message = render_to_string("emails/verify_email.html",{"secret":secret})
             send_mail(
-                "Verify your Eventhub Account",
+                f"Verify your Eventhub Account",
                 strip_tags(html_message),
                 settings.EMAIL_FROM,
                 [self.email],

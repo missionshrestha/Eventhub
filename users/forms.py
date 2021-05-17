@@ -82,8 +82,9 @@ class SignUpForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        
-        if models.User.objects.filter(email="email").exists():
+        print("----------------------------------------------------")
+        print(models.User.objects.filter(email=email).exists())
+        if models.User.objects.filter(email=email).exists():
             raise forms.ValidationError("User Already Exists with that Email.")
         else:
             return email
@@ -102,5 +103,6 @@ class SignUpForm(forms.ModelForm):
         password = self.cleaned_data.get("password")
         user = super().save(commit=False)
         user.username = email
+        user.email = email
         user.set_password(password)
         user.save()

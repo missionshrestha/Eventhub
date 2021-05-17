@@ -8,7 +8,9 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.shortcuts import render,redirect,reverse
 from django.contrib.auth import authenticate,login,logout
+from django.contrib import messages
 from . import forms
+import users
 
 # Create your views here.
 '''
@@ -45,10 +47,12 @@ class LoginView(FormView):
             user = authenticate(self.request,username=email,password=password)
             if user is not None:
                 login(self.request,user)
+                messages.success(self.request,f"Welcome Back, {user.first_name}")
                 return super().form_valid(form)
 
 
 def log_out(request):
+    messages.info(request,f"See you later")
     logout(request)
     return redirect(reverse("core:home"))
  
@@ -68,6 +72,7 @@ class SignUpView(FormView):
             login(self.request,user)
         
         user.verify_email()
+        messages.success(self.request,"Verification link sent to your mail.")
         return super().form_valid(form)
     
 def complete_verification(request,key):
@@ -80,8 +85,9 @@ def complete_verification(request,key):
     except models.User.DoesNotExist:
         # failed message here
         pass
-
+    messages.success(request,"Email Verified")
     return redirect(reverse("core:event"))
+    
 
 
 def github_login(self):
@@ -124,7 +130,7 @@ def github_callback(request):
                 )
                 email_json = email_request.json()
                 profile_json = profile_request.json()
-                print(profile_json)
+                # print(profile_json)
                 username = profile_json.get("login",None)
                 if username is not None:
                     name = profile_json.get("name")
@@ -141,6 +147,7 @@ def github_callback(request):
                         user.set_unusable_password()
                         user.save()
                     login(request,user)
+                    messages.success(request,f"Welcome Back, {user.first_name}")
                     return redirect(reverse("core:event"))
 
                     
@@ -155,5 +162,5 @@ def github_callback(request):
         else:
             raise GithubException("Can't get code")
     except GithubException as err:
-        print(err)
+        messages.error(request,err)
         return redirect(reverse("users:login"))
