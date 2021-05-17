@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.http.response import HttpResponseRedirectBase
 from django.views import View
 from django.urls import reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import FormView,DetailView
 from django.shortcuts import render,redirect,reverse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -164,3 +164,12 @@ def github_callback(request):
     except GithubException as err:
         messages.error(request,err)
         return redirect(reverse("users:login"))
+
+
+class UserProfileView(DetailView):
+
+    model = models.User    
+    context_object_name = "user_obj"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)

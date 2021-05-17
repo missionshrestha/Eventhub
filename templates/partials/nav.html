@@ -151,9 +151,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="navbar-profile-img" href="#"><img src="{% static 'images/event/profile.svg' %}" alt="" width="40px"
-                            height="auto"></a>
-                </li>
+                    <a class="navbar-profile-img" href="{{user.get_absolute_url}}">
+                        {% if user.avatar %}
+                            <img style="border-radius: 50%; z-index: 10000;" src="{{user.avatar.url}}" alt="{{user.first_name}}'s avatar" width="40px" height="auto">
+                        {% else %}
+                        <img src="{% static 'images/event/profile.svg' %}" alt="" width="40px"
+                            height="auto">
+                        {% endif %}
+                        </a>
+                        </li>
                 <li>
                     <div class="dropdown">
                         <button class="dropbtn">

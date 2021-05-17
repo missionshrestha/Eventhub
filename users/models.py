@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.mail import send_mail
+from django.urls.base import reverse
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 # Create your models here.
@@ -40,6 +41,9 @@ class User(AbstractUser):
     email_secret = models.CharField(max_length=30,default="",blank=True)
     login_method = models.CharField(max_length=50,choices=LOGIN_CHOICES,default=LOGIN_EMAIL)
     
+    def get_absolute_url(self):
+        return reverse("users:profile",kwargs={'pk':self.pk})
+
     def verify_email(self):
         if self.email_verified is False:
             secret = uuid.uuid4().hex[:30]
