@@ -1,11 +1,14 @@
 import os
+from django.forms import widgets
+from django.views.generic.edit import UpdateView
 import requests
 from users import models
 from django.contrib import auth
 from django.http.response import HttpResponseRedirectBase
 from django.views import View
 from django.urls import reverse_lazy
-from django.views.generic import FormView,DetailView
+from django.contrib.auth.views import PasswordChangeView
+from django.views.generic import FormView,DetailView,UpdateView
 from django.shortcuts import render,redirect,reverse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -173,3 +176,28 @@ class UserProfileView(DetailView):
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
+
+class UpdateProfileView(UpdateView):
+
+    model = models.User
+    form_class = forms.UpdateForm
+    template_name = "users/update-profile.html"
+    context_object_name = "user_edit"
+    # fields = {
+    #     "first_name",
+    #     "last_name",
+    #     "avatar",
+    #     "gender",
+    #     "bio",    
+    # }
+    
+    def get_object(self,queryset=None):
+        return self.request.user
+
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        self.object.username = email
+        self.object.save()
+        messages.success(self.request,"Profile updated")
+        return super().form_valid(form)

@@ -106,3 +106,16 @@ class SignUpForm(forms.ModelForm):
         user.email = email
         user.set_password(password)
         user.save()
+
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = ["email","first_name","last_name","gender","bio","avatar"]
+        widgets={
+            'email':forms.TextInput(attrs={'placeholder':"Email",'class':"myFieldclass name first-name"}),
+            'first_name':forms.TextInput(attrs={'placeholder':"First Name",'class':"myFieldclass name first-name"}),
+            'last_name':forms.TextInput(attrs={'placeholder':"Last Name",'class':"myFieldclass name last-name"}),
+            'bio':forms.Textarea( attrs={'maxlength':"20",'placeholder':"Write your bio here (Only 27 characters)",'class':"myFieldclass"}),
+        }
+    
