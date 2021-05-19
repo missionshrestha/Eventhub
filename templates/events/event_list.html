@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block page_name %}
+    Events
+{% endblock page_name%}
+
+
+{% block content %}
+    {% for event in events %}
+        {% include 'partials/event_card.html' with event=event %}
+    {% endfor %}
+
+    
+
+    <div class="contaier-fluid next-event" style="margin-top:50px; margin-bottom: 50px;">
+         <h5>
+            {% if page_obj.has_previous %}
+                <a style="text-decoration: none;" href="?page={{page_obj.previous_page_number}}"> &#8592 Previous</a>
+            {% endif %}
+                Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+            {% if page_obj.has_next %}
+                <a style="text-decoration: none;" href="?page={{page_obj.next_page_number}}">Next &#8594</a>
+            {% endif %}
+            </h5>
+    </div>
+    
+{% endblock content %}

@@ -1,0 +1,570 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_name %}
+    Home
+{% endblock page_name%}
+
+{% block content %}
+<style>
+    body {
+        background-color: #FEFFEC;
+        overflow-x: hidden;
+    }
+    .introduction{
+  background-color: rgba(133, 206, 222, 0.3);
+}
+.intro-img{
+  width:50%;
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+
+.intro-text{
+  margin-top: 180px;
+  margin-left: 150px;
+  margin-bottom: 50px;
+}
+@media only screen and (max-width: 767px) {
+.intro-text{
+position: relative;
+  right: 60px;
+  bottom: 130px;
+}
+}
+.btn-intro{
+background-color: #6b6bff;
+
+color: white;
+  border-radius: 14px;
+border:none;
+
+
+
+  width:8rem;
+  height: 3.5rem;
+  margin-top: 50px;
+
+}
+.btn-intro:hover{
+  position: relative;
+  right: 8px;
+  background-color: blue;
+  font-weight: bold;
+  width: 9rem;
+
+
+}
+@media only screen and (max-width: 765px) {
+.introduction{
+    text-align: center;
+  }
+  .intro-img{
+    width:100%;
+  }
+}
+
+    .choose-us {
+        text-align: center;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    .chooseus-row {
+        margin-left: 40px;
+        margin-right: 50px;
+        margin-top: 110px;
+    }
+
+    @media only screen and (max-width: 990px) {
+        .choose-us-element {
+            margin-top: 30px;
+            margin-bottom: 30px;
+
+        }
+    }
+
+    .chooseus-img {
+        height: 60px;
+        width: 60px;
+    }
+
+    .why-choose-us {
+        position: relative;
+    }
+
+    .why-choose-us::after {
+
+        content: "";
+        display: block;
+        position: absolute;
+
+        border: solid #6A77ED;
+        border-top: none;
+        border-width: thick;
+        width: 14%;
+
+        left: 43.6%;
+        right: 41.04%;
+        top: 138%;
+
+    }
+
+
+
+    /***************************** Achievement **************************/
+    .achievement {
+        text-align: center;
+        margin-top: 150px;
+        margin-bottom: 100px;
+    }
+
+    .achievement-left {
+        position: relative;
+        top: 60px;
+    }
+
+    .achievement-right {
+        text-align: left;
+
+    }
+
+    .achievement-right-text {
+        position: relative;
+        left: 40px;
+        bottom: 50px;
+    }
+
+    .achievement-img {
+        position: relative;
+        right: 20px;
+    }
+
+    @media only screen and (max-width: 765px) {
+
+        .achievement-left {
+            position: static;
+            text-align: center;
+        }
+
+        .achievement-right {
+            position: relative;
+
+            margin-top: 40px;
+            right: 60px;
+
+        }
+
+        .achievement-right-text {
+            position: relative;
+            left: 270px;
+        }
+
+        .achievement-img {
+            position: relative;
+            left: 205px;
+        }
+    }
+
+    /************************** Real stories from real people **********************8*/
+    .stories {
+        text-align: center;
+        /* position: relative; */
+        margin-left: 100px;
+        margin-bottom: 150px;
+    }
+
+    .stories-header-text {
+        position: relative;
+        left: 100px;
+        bottom: 100px;
+    }
+
+    .stories-flex {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        /* margin-left: 300px; */
+    }
+
+    .stories-1 {
+        /* display: inline-block; */
+        /* height:390px; */
+        border: 2px solid;
+        /* box-shadow: 0px 10px 20px rgba(41, 41, 42, 0.07);
+border-radius: 8px; */
+        position: relative;
+        left: 150px;
+        width: 351px;
+        background-color: white;
+    }
+
+    .stories-2 {
+        /* display: inline-block; */
+
+        /* height:390px; */
+        border: 2px solid;
+        /* box-shadow: 0px 10px 20px rgba(41, 41, 42, 0.07);
+border-radius: 8px; */
+        position: relative;
+        bottom: 250px;
+        left: 200px;
+
+        width: 400px;
+        background-color: white;
+    }
+
+    .stories-3 {
+        /* display: inline-block; */
+        /* height:390px; */
+        border: 2px solid;
+        /* box-shadow: 0px 10px 20px rgba(41, 41, 42, 0.07);
+border-radius: 8px; */
+        position: relative;
+        top: 140px;
+        right: 200px;
+        width: 400px;
+        background-color: white;
+    }
+
+    .stories-1-text {
+        position: relative;
+        width: 70%;
+        /* left: 50px;
+  bottom: 15px; */
+        text-align: left;
+        margin-left: 60px;
+        bottom: 25px;
+    }
+
+    .stories-2-text {
+        position: relative;
+        width: 70%;
+        /* left: 50px;
+  bottom: 15px; */
+        text-align: left;
+        margin-left: 80px;
+        bottom: 25px;
+    }
+
+    .stories-3-text {
+        position: relative;
+        width: 70%;
+        /* left: 50px;
+  bottom: 15px; */
+        text-align: left;
+        margin-left: 80px;
+        bottom: 25px;
+    }
+
+    .stories-quote {
+
+        text-align: left;
+        width: 7%;
+        margin-left: -300px;
+        margin-top: 20px;
+    }
+
+    .girl-1 {
+        margin-left: -200px;
+        transform: scale(0.8);
+
+    }
+
+    .girl-1-name {
+        position: relative;
+        bottom: 70px;
+        left: 50px
+    }
+
+    .girl-2-name {
+        position: relative;
+        bottom: 70px;
+        left: 50px
+    }
+
+    .girl-3-name {
+        position: relative;
+        bottom: 70px;
+        left: 50px
+    }
+
+    .stories-header {
+        text-align: left;
+        margin-left: 225px;
+    }
+
+    .stories-header-text {
+        /* position: relative; */
+        left: 100px;
+        bottom: 50px;
+    }
+
+    @media only screen and (max-width: 1300px) {
+
+        /* .intro-text{
+position: relative;
+    right: 60px;
+    bottom: 130px;
+  } */
+        .stories-header {
+            position: relative;
+            right: 220px;
+        }
+
+        .stories-header-img {
+            transform: scale(0.8);
+        }
+
+        .stories-flex {
+            display: inline-block;
+
+        }
+
+        .stories-1 {
+            position: static;
+            margin-left: -60px;
+            margin-bottom: 10px;
+        }
+
+        .stories-2,
+        .stories-3 {
+            position: static;
+            margin-left: -80px;
+            margin-bottom: 10px;
+        }
+
+
+    }
+
+    /************************ Organize With 2 background blue images ******************/
+    .organize-last {
+        text-align: center;
+        margin-bottom: -75px;
+
+    }
+
+    .organize-last-text {
+        font-weight: bolder;
+    }
+
+    .organize-last-first-img {
+        /* position: absolute; */
+
+        position: relative;
+        height: auto;
+        width: 25%;
+        top: 100px;
+        right: 290px;
+
+        z-index: -1;
+    }
+
+    .organize-last-second-img {
+        margin-bottom: -70px;
+        position: relative;
+
+        height: auto;
+        width: 27%;
+        bottom: 200px;
+        left: 290px;
+
+
+        z-index: -1;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .organize-last-first-img {
+            right: 170px;
+        }
+
+        .organize-last-second-img {
+            left: 170px;
+            margin-bottom: 0px;
+        }
+    }
+
+    .organize-last-btn {
+        background-color: #6b6bff;
+
+        color: white;
+        /* border-radius: 14px; */
+        border: none;
+        padding: 0;
+
+        width: 7rem;
+        height: 2rem;
+        margin-top: 30px;
+    }
+
+    .organize-last-btn:hover {
+        position: relative;
+
+        background-color: blue;
+        font-weight: bold;
+        width: 7.2rem;
+
+    }
+</style>
+
+
+
+<div class=" container-fluid introduction">
+    <div class="row">
+        <img class=" col-md-6 intro-img" src="{%static 'images/homepage/event1.svg' %}" alt="">
+        <div class=" col-md-6 ">
+            <div class=" intro-text">
+                <h1>Discover the Events</h1>
+                <h3>Everything you need</h3>
+                <form method="get" action="/users/signup">
+                    <a style="text-decoration: none;" href="{% url "users:signup" %}"><button class="btn-intro" type="submit">JOIN NOW</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="choose-us">
+    <h1 class="why-choose-us">Why choose US?</h1>
+    <div class="container-fluid">
+        <div class="row chooseus-row">
+            <div class="col-lg-4 choose-us-element">
+                <img class="chooseus-img" src="{%static 'images/homepage/chooseus-img1.svg'%}" alt="">
+                <h2>Event Update</h2>
+                <p class="chooseus-p">This is the best thing there is on the market currently. We ensure this is the
+                    best it can get.</p>
+            </div>
+            <div class="col-lg-4 choose-us-element">
+                <img class="chooseus-img" src="{%static 'images/homepage/chooseus-img2.svg' %}" alt="">
+
+                <h2>Free of Charge</h2>
+                <p class="chooseus-p">This is the best thing there is on the market currently. We ensure this is the
+                    best it can get.</p>
+            </div>
+            <div class="col-lg-4 choose-us-element">
+                <img class="chooseus-img" src="{%static 'images/homepage/chooseus-img3.svg' %}" alt="">
+
+                <h2>Event Sansar</h2>
+                <p class="chooseus-p">This is the best thing there is on the market currently. We ensure this is the
+                    best it can get.</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="container-fluid achievement">
+    <div class="row">
+        <div class="col-md-6 achievement-left">
+            <h2>Our Achievements</h2>
+            <p>With our Superpowers, we have reached this!</p>
+        </div>
+        <div class="col-md-6  achievement-right">
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="achievement-img" src="{%static 'images/homepage/chooseus-img1.svg' %}" alt="">
+
+                    <div class="achievement-right-text">
+                        <h3>1000+</h3>
+                        <p>Site Views per day</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img class="achievement-img" src="{%static 'images/homepage/users.svg' %}" alt="">
+
+                    <div class="achievement-right-text">
+                        <h3>200+</h3>
+                        <p>Users</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="achievement-img" src="{%static 'images/homepage/organizer.svg' %}" alt="">
+
+                    <div class="achievement-right-text">
+                        <h3>50+</h3>
+                        <p>Organizers</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img class="achievement-img" src="{%static 'images/homepage/district.svg' %}" alt="">
+                    <div class="achievement-right-text">
+                        <h3>76</h3>
+                        <p>Districts</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="stories">
+    <div class="stories-header">
+        <img class="stories-header-img" src="{%static 'images/homepage/quote.svg'%}" alt="">
+        <div class="stories-header-text">
+            <h2>Real Stories from <br>Real users</h2>
+            <p>Get inspired by these Stories.</p>
+        </div>
+    </div>
+    <div class="stories-flex">
+        <div class="stories-1">
+            <img class="stories-quote" src="{%static 'images/homepage/quote.svg'%}" alt="">
+            <p class="stories-1-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book.</p>
+            <img class="girl-1" src="{%static 'images/homepage/girl.svg' %}" alt="">
+            <h2 class="girl-1-name">Elina Martinez</h2>
+        </div>
+        <div class="stories-2">
+            <img class="stories-quote" src="{%static 'images/homepage/quote.svg' %}" alt="">
+            <p class="stories-2-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book.</p>
+            <img class="girl-1" src="{%static 'images/homepage/girl.svg'%}" alt="">
+            <h2 class="girl-2-name">Michelle Parker</h2>
+        </div>
+        <div class="stories-3">
+            <img class="stories-quote" src="{%static 'images/homepage/quote.svg'%}" alt="">
+            <p class="stories-3-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book.</p>
+            <img class="girl-1" src="{%static 'images/homepage/girl.svg' %}" alt="">
+            <h2 class="girl-3-name">Elizabeth Olsen</h2>
+        </div>
+    </div>
+</div>
+<div class="organize-last">
+    <img class="organize-last-first-img" src="{%static 'images/homepage/Vector.svg' %}" alt="">
+    <h2 class="organize-last-text">Organize your events with <br>EventHub</h2>
+    <form method="get" action="/users/signup">
+        <a style="text-decoration: none;" href="{% url "users:signup" %}"><button class="organize-last-btn" type="submit">Join Now</button></a>
+    </form>
+    <img class="organize-last-second-img" src="{%static 'images/homepage/Vector1.svg' %}" alt="">
+</div>
+{% endblock content %}
+
+
+<script>
+    $(".navbar-brand").hover(function() {
+  $(".navbar-logo-img").css("transform","scale(1.1)");
+  $(".navbar-logo-img").css("opacity","1");
+
+}, function(){
+  $(".navbar-logo-img").css("transform","");
+  $(".navbar-logo-img").css("opacity","");
+
+}
+);
+
+
+$(".foot-icon").hover(function() {
+
+  $(this).css("opacity","1");
+$(this).css("transform","scale(1.2)");
+
+}, function(){
+  $(".foot-icon").css("opacity","");
+$(this).css("transform","");
+}
+);
+</script>
