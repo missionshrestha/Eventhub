@@ -9,6 +9,7 @@
 {% endblock search-bar %}
 
 {% block content %}
+<div style="padding-top: 80px;">
     <h2>Search</h2>
 
     <form method="get" action="{% url "events:search" %}">
@@ -20,6 +21,7 @@
     {% for event in events %}
         <h3>{{event}}</h3>
     {% endfor %}
+</div>
 {% endblock %}
 
 

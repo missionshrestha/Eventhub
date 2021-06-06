@@ -132,7 +132,7 @@
 
 
 
-        <h3 class="profile-name">{{user_obj.first_name}} {% if user_obj.is_verified %} <img class="verified-blue" src="images/verified-sign.svg">{% endif %}</h3>
+        <h3 class="profile-name">{{user_obj.first_name}} {% if user_obj.superorganizer %} <img class="verified-blue" src="{% static 'images/user-detail/verified-sign.svg' %}">{% endif %}</h3>
         {% if user == user_obj %}
         <a href="{% url 'users:update' %}">
             <button type="button" class=" button-edit">

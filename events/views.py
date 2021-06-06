@@ -17,8 +17,9 @@ def all_events(request):
 '''
 from django.http import Http404
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView,UpdateView
 from django.core.paginator import Paginator
+from users import mixins as user_mixins
 from . import models,forms
 
 class EventView(ListView):
@@ -122,3 +123,28 @@ def search(request):
     events = models.Event.objects.filter(**filter_args)
     return render(request, "events/search.html",{**form,**choices,"events":events,"price":price,"super_organizer":super_organizer,})
 '''
+
+
+class EditEventView(user_mixins.LogInOnlyView,UpdateView):
+
+    model = models.Event
+    template_name = "events/event_edit.html"
+    form_class =forms.UpdateForm
+    # fields = [
+    # "name",
+    # "description",
+    # "city",
+    # "address", 
+    # "price",
+    # "event_date",
+    # "event_start",
+    # "event_end",
+    # "event_type",
+    # "event_rule", 
+    # ]
+
+    def get_object(self,queryset=None):
+        event = super().get_object(queryset=queryset)
+        if(event.organizer.pk != self.request.user.pk):
+            raise Http404()
+        return event
