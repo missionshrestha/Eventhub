@@ -196,54 +196,13 @@ textarea{
   background-color: gold;
   border-radius: 20px;
 }
-/* #id_avatar {
-	position: relative;
-	overflow: hidden;
-	margin: 10px;
-}
-#id_avatar input.upload {
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	font-size: 20px;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity=0);
-} */
-#avatar-clear_id{
-  display: inline-block;
-  flex-wrap: wrap;
-  width: 20px;
-  justify-content: center;
-}
-.for-input{
-  display: flex;
-  width: auto;
-  flex-direction: column;
-  text-align: center;
-}
-.for-input input{
-  margin-left: 90px;
-}
-input[type="checkbox"]{
-  margin-left: 200px;
-  height: 15px;
-}
-.image-input{
-  flex-direction: column;
-  align-items: center;
-}
-
 
 
 @media only screen and (max-width: 650px) {
-  .box-1{
-    display: none;
-  }
-  .right-side{
-    display: block;
+  .cross{
+    position: absolute;
+    right: 4rem;
+    top: 6rem;
   }
 }
 
@@ -257,34 +216,74 @@ input[type="checkbox"]{
                 <span class="input-group-text name-space" id="addon-wrapping">Name</span>
                 {{form.name}}
               </div>
+              {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                        <span style="color: red; position: relative; top: -10px; left: -20px;">{{error}}</span>
+                    {% endfor %}
+              {% endif %}
               <div class="input-group flex-nowrap spacer w-100 " >
                 <span class="input-group-text address-space" id="addon-wrapping">Address</span>
                 {{form.address}}
               </div>
+              {% if form.address.errors %}
+                  {% for error in form.address.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
               <div class="input-group flex-nowrap spacer w-100 " >
                 <span class="input-group-text city-space" id="addon-wrapping">City</span>
                 {{form.city}}
               </div>
+              {% if form.city.errors %}
+                  {% for error in form.city.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
             <div class="input-group flex-nowrap spacer w-100 " >
               <span class="input-group-text date-space" id="addon-wrapping">Event Date</span>
               {{form.event_date}}
             </div>
+            {% if form.event_date.errors %}
+                  {% for error in form.event_date.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
             <div class="input-group flex-nowrap spacer w-100 " >
               <span class="input-group-text start-time-space" id="addon-wrapping">Start Time</span>
               {{form.event_start}}
             </div>
+            {% if form.event_start.errors %}
+                  {% for error in form.event_start.errors %}
+                      <span style="color: red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
             <div class="input-group flex-nowrap spacer w-100 " >
               <span class="input-group-text end-time-space" id="addon-wrapping">End Time</span>
               {{form.event_end}}
             </div>
+            {% if form.event_end.errors %}
+                  {% for error in form.event_end.errors %}
+                      <span style="color: red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
             <div class="input-group flex-nowrap spacer w-100 " >
               <span class="input-group-text event-type-space" id="addon-wrapping">Event Type</span>
               {{form.event_type}}
             </div>
+            {% if form.event_type.errors %}
+                  {% for error in form.event_type.errors %}
+                      <span style="color: red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
             <div class="input-group flex-nowrap spacer w-100 " >
               <span class="input-group-text price-space" id="addon-wrapping">Price</span>
               {{form.price}}
             </div>
+            {% if form.price.errors %}
+                  {% for error in form.price.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
 
           <a href="{% url 'events:event_detail' object.pk %}">
             <div class="cross"><img src="{% static 'images/user-detail/cross.svg'%}" alt=""></div>
@@ -292,13 +291,22 @@ input[type="checkbox"]{
 
                 <div class="input-group flex-nowrap spacer w-100 ">
                     <span class="input-group-text event-description-space" id="addon-wrapping">Description</span>
-                    {{form.description|safe|linebreaks}}
+                    {{form.description}}
                 </div>
-
+                {% if form.description.errors %}
+                  {% for error in form.description.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
                 <div class="input-group flex-nowrap spacer w-100 ">
                     <span class="input-group-text event-rule-space" id="addon-wrapping">Event Rule</span>
                     {{form.event_rule}}
                 </div>
+                {% if form.enent_rule.errors %}
+                  {% for error in form.enent_rule.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
 
 
                 <div class="login">
@@ -307,11 +315,11 @@ input[type="checkbox"]{
                                 Update Event
                             </span>
                         </button>
-                        <button class="btn login-button" style="background-color: #419CD6; width:10rem; border-radius: 10px;" type="submit">
-                          <span style="font-size: 15px; vertical-align: center; color: white;"> 
+                        <a href ="{% url 'events:photos' event.pk %}" class="btn login-button" style="border:1px solid dodgerblue; width:10rem; border-radius: 10px;" type="submit">
+                          <span style="font-size: 15px; vertical-align: center; color: black;"> 
                               Edit photo
                           </span>
-                      </button>
+                        </a>
                 </div>
     </form>
 </div>

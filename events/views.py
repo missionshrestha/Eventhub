@@ -16,9 +16,13 @@ def all_events(request):
 
 '''
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render,redirect,reverse
 from django.views.generic import ListView,UpdateView
 from django.core.paginator import Paginator
+from django.views.generic.base import View
+from django.views.generic.detail import DetailView
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from users import mixins as user_mixins
 from . import models,forms
 
@@ -148,3 +152,27 @@ class EditEventView(user_mixins.LogInOnlyView,UpdateView):
         if(event.organizer.pk != self.request.user.pk):
             raise Http404()
         return event
+
+class EventPhotosView(user_mixins.LogInOnlyView,DetailView):
+    model = models.Event
+    template_name = "events/event_photos.html"
+    
+    def get_object(self,queryset=None):
+        event = super().get_object(queryset=queryset)
+        if(event.organizer.pk != self.request.user.pk):
+            raise Http404()
+        return event
+
+
+@login_required
+def delete_photo(request,event_pk,photo_pk):
+    user = request.user
+    try:
+        event = models.Event.objects.get(pk=event_pk)
+        if event.organizer.pk != user.pk:
+            messages.error(request,"Can't delete that photo")
+        else:
+            models.Photo.objects.filter(pk = photo_pk).delete()
+        return redirect(reverse("events:photos",kwargs={"pk":event_pk}))
+    except models.Event.DoesNotExist:
+        return redirect(reverse("core:home"))
