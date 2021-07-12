@@ -101,16 +101,17 @@ body {
       <span class="caption">{{photo.caption}}</span>
     </div>
     <div class="two-button">
-      <button class="btn-photo btn-photo-edit"><a href="">Edit</a></button>
+      <button class="btn-photo btn-photo-edit"><a href="{% url 'events:edit-photo' event.pk photo.pk %}">Edit</a></button>
       <button class="btn-photo btn-photo-delete"><a href="{% url 'events:delete-photo' event.pk photo.pk %}">Delete</a></button>
     </div>
   </div>
   {% endfor %}
   <div style="display: flex;">
         <button class="btn-photo" style="background-color:dodgerblue;">Upload photo</button>
-        <button class="btn-photo" style="background-size: white;
+        
+        <a href="{% url 'events:edit' event.pk %}"><button class="btn-photo" style="background-size: white;
         color: black; border: 1px solid dodgerblue; margin-left: 30px;
-        width: 180px;">Back to event edit</button>
+        width: 180px;">Back to event edit</button></a>
   </div>
 </div>
 
