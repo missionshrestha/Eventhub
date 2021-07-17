@@ -1,4 +1,5 @@
 from django import forms
+from django.shortcuts import redirect,reverse
 from . import models
 class SearchForm(forms.Form):
 
@@ -39,3 +40,14 @@ class UpdateForm(forms.ModelForm):
             # 'bio':forms.Textarea( attrs={'maxlength':"20",'placeholder':"Write your bio here (Only 27 characters)",'class':"myFieldclass"}),
         }
 
+class CreatePhotoForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Photo
+        fields = {'caption','file'}
+
+    def save(self,pk,*args,**kwargs):
+        photo = super().save(commit=False)
+        event = models.Event.objects.get(pk=pk)
+        photo.event = event
+        photo.save()

@@ -302,8 +302,8 @@ textarea{
                     <span class="input-group-text event-rule-space" id="addon-wrapping">Event Rule</span>
                     {{form.event_rule}}
                 </div>
-                {% if form.enent_rule.errors %}
-                  {% for error in form.enent_rule.errors %}
+                {% if form.event_rule.errors %}
+                  {% for error in form.event_rule.errors %}
                       <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
                   {% endfor %}
             {% endif %}

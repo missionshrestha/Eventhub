@@ -62,16 +62,25 @@ class Event(core_models.TimeStampedModel):
         return 0
 
     def first_photo(self):
-        photo, = self.photos.all()[:1]   # comma will get the first ephoto from the query set
-        return photo.file.url
+        try:    
+            photo, = self.photos.all()[:1]   # comma will get the first ephoto from the query set
+            return photo.file.url
+        except:
+            pass
 
     def second_photo(self):
-        photo, = self.photos.all()[1:2]
-        return photo.file.url
+        try:
+            photo, = self.photos.all()[1:2]
+            return photo.file.url
+        except:
+            pass
 
     def third_photo(self):
-        photo, = self.photos.all()[2:3]
-        return photo.file.url
+        try:
+            photo, = self.photos.all()[2:3]
+            return photo.file.url
+        except:
+            pass
 
 
     class Meta:

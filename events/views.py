@@ -18,13 +18,14 @@ def all_events(request):
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.shortcuts import render,redirect,reverse
-from django.views.generic import ListView,UpdateView
+from django.views.generic import ListView,UpdateView, CreateView, FormView
 from django.core.paginator import Paginator
 from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.views.generic.edit import CreateView, FormView
 from users import mixins as user_mixins
 from . import models,forms
 
@@ -192,3 +193,16 @@ class EditPhotoView(user_mixins.LogInOnlyView, SuccessMessageMixin,UpdateView):
     def get_success_url(self):
         event_pk = self.kwargs.get("event_pk")
         return reverse("events:photos",kwargs={"pk":event_pk})
+
+
+class AddPhotoView(user_mixins.LogInOnlyView,FormView):
+    model = models.Photo
+    template_name = "events/photo_create.html"
+    fields = ["caption","file"]
+    form_class = forms.CreatePhotoForm
+
+    def form_valid(self, form):
+        pk = self.kwargs.get("pk")
+        form.save(pk)
+        messages.success(self.request,"Photo Uploaded")
+        return redirect(reverse("events:photos",kwargs={"pk":pk}))
