@@ -206,3 +206,17 @@ class AddPhotoView(user_mixins.LogInOnlyView,FormView):
         form.save(pk)
         messages.success(self.request,"Photo Uploaded")
         return redirect(reverse("events:photos",kwargs={"pk":pk}))
+
+
+class CreateEventView(user_mixins.LogInOnlyView,FormView):
+    form_class = forms.CreateEventForm
+    template_name = "events/event_create.html"
+
+    def form_valid(self,form):
+        event = form.save()
+        event.organizer = self.request.user
+        event.save()
+        form.save_m2m()
+        messages.success(self.request,"Event Created")
+        return redirect(reverse("events:event_detail",kwargs ={"pk":event.pk}))
+        
