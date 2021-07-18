@@ -1,0 +1,697 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_name %}
+{{event.name}}
+{% endblock page_name%}
+
+{%comment%}
+{% block content %}
+<div style="display: block; padding-top: 70px;">
+  <h1>{{event.name}}</h1>
+  <h3>{{event.description}}</h3>
+</div>
+<div>
+  <h2>By:{{event.organizer.username}}
+    {% if event.organizer.superorganizer %}
+    (superorganizer)
+    {% endif %}
+  </h2>
+  <h3>Event Rules</h3>
+  <ul>
+    {% for a in event.event_rule.all %}
+    <li>{{a}}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
+{%endcomment%}
+
+{% block content %}
+<style>
+  .row {
+    font-family: 'Nunito', sans-serif;
+  }
+
+
+  .intro {
+
+    text-align: center;
+    padding-top: 4%;
+    padding-left: 100px;
+  }
+
+  .r2 {
+
+    padding-top: 38px;
+    transform: scaleY(1.05);
+  }
+
+  .test {
+    transform: scale(1.6, 1.28);
+    overflow: hidden;
+
+  }
+
+  .top-left-img {
+    position: relative;
+    right: 10px;
+    width: 50%;
+
+  }
+
+  .test2 {
+    margin-left: 45px;
+    transform: scale(1.2);
+    width: 85%;
+    overflow: hidden;
+  }
+
+  .test3 {
+    margin-left: 45px;
+    transform: scale(1.2);
+    width: 85%;
+    overflow: hidden;
+  }
+
+  .top-left-img {
+    /* transform: scale(1.1); */
+    transition: all 0.3s ease-in;
+
+  }
+
+  .r2 {
+    margin-left: 70px;
+
+  }
+
+  .right-top-img {
+    /* transform: scale(1.2); */
+    transition: all 0.3s ease-in;
+
+  }
+
+  .right-bottom-img {
+    /* transform: scale(1.2); */
+    transition: all 0.3s ease-in;
+
+  }
+
+  @media only screen and (max-width: 992px) {
+
+    .test {
+      margin-left: -30px;
+      transform: scale(1.2, 1.1);
+
+    }
+
+    .top-left-img {
+      transform: translateX(0px);
+    }
+
+    .test2,
+    .test3 {
+      width: 100%;
+      transform: scale(1.1);
+      margin-left: 0;
+    }
+
+    .test3 {
+      transform: scale(1.1, 1.06);
+      position: relative;
+      bottom: 6px;
+    }
+
+    .r2 {
+      padding-top: 0;
+    }
+
+    .intro {
+      padding-left: 0;
+    }
+
+    .r2 {
+      margin-left: -50px;
+    }
+  }
+
+  .top-left-img:hover {
+    transform: scale(1.2);
+  }
+
+  .right-top-img:hover {
+    transform: scale(1.2);
+  }
+
+  .right-bottom-img:hover {
+    transform: scale(1.2);
+  }
+
+  /*event-details*/
+
+  .event-details {
+    margin-top: 50px;
+    padding-left: 5%;
+  }
+
+  .event-name {
+    display: inline-block;
+    padding-top: 5%;
+    font-weight: 600;
+    line-height: 40px;
+    color: #3686D1;
+    font-size: 32px;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  h6 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .row-left {
+      text-align: center;
+    }
+  }
+
+  .fav {
+    text-decoration: none;
+    padding-top: 9%;
+    color: #8646EF;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 33px;
+    font-weight: bold;
+  }
+
+  .love {
+    padding-left: 10px;
+    padding-bottom: 2%;
+  }
+
+  /* @media only screen and (max-width: 767px){
+.A-circle-size::after{
+  top: 15px;
+  left: 0;
+}
+} */
+  .organizer-name {
+    padding-top: 5%;
+    padding-left: 4%;
+    color: #C4C4C4;
+  }
+
+  .price {
+    color: #8646EF;
+
+  }
+
+  .event-part {
+    /* text-align: center; */
+    width: 75%;
+    font-size: 20px;
+    transform: translate(15%);
+  }
+
+  @media only screen and (max-width: 767px) {
+    .event-part {
+      width: 100%;
+      font-size: 26px;
+      transform: translate(0%);
+      text-align: justify;
+
+    }
+  }
+
+  .t {
+    text-align: center;
+  }
+
+  .event-details1 {
+    text-align: left;
+    /* background-color: #EFEFEF; */
+    background-color: rgb(226, 224, 224);
+    border:1px solid black;
+    border-radius: 20px;
+    margin-top: 40px;
+    padding-right: 80px;
+    display: inline-block;
+    width: 400px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  @media only screen and (max-width: 991px) and (min-width: 767px) {
+    .event-details1 {
+      margin-left: 100px;
+      margin-right: 100px;
+
+    }
+
+  }
+
+  .event-info {
+    padding-left: 5%;
+    padding-top: 5%;
+    padding-bottom: 2%;
+  }
+
+  .event-head {
+    color: #3686D1;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 20px;
+    padding-bottom: 0;
+
+  }
+
+  .dot {
+
+    border: none;
+    border-top: 15px dotted #8646EF;
+    color: black;
+    background-color: inherit;
+    height: 30px;
+    width: 75px;
+    padding-top: 0;
+    padding-left: 4%;
+
+  }
+
+  .A-circle {
+    background: #C4C4C4;
+    color: #fff;
+    padding: 10px 25px;
+    padding-top: 8px;
+    border-radius: 50%;
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  .A-circle-size {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  @media only screen and (max-width: 1293px) and (min-width: 991px) {
+    .A-circle-size {
+      margin-top: 50px;
+
+    }
+
+  }
+
+  @media only screen and (max-width: 767px) {
+    .A-circle-size {
+      transform: scale(1);
+      position: relative;
+      right: 20px;
+      margin-bottom: 70px;
+    }
+
+  }
+
+
+  .A-circle-size::after {
+    position: absolute;
+    bottom: 6px;
+    left: 120px;
+    content: "{{event.organizer.first_name}}";
+    font-size: 45px;
+    font-weight: bold;
+    display: block;
+    color: rgba(196, 196, 196, 1);
+
+
+  }
+
+  @media only screen and (max-width: 766px) {
+    .A-circle-size {
+      margin-left: 20px;
+    }
+  }
+
+  .event-specific {
+    font-size: 20px;
+    line-height: 19px;
+    color: black;
+  }
+
+  .register-button {
+    width: 300px;
+    height: 50px;
+    background: #8646EF;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-size: 24px;
+    line-height: 45px;
+    margin-top: 10%;
+    /* margin-left: 15%; */
+    margin-bottom: 2%;
+    opacity: 0.8;
+  }
+
+  .register-button:hover {
+    opacity: 1;
+  }
+
+  /*rule section */
+  .event-rules {
+    padding-top: 10px;
+  }
+
+  .rule-elements {
+    padding-left: 5%;
+    /* padding-top: 5%; */
+    margin-top: 50px;
+    margin-bottom: 0px;
+  }
+
+  .rules {
+    font-size: 36px;
+    line-height: 49px;
+  }
+
+  .rules li {
+    font-size: 22px;
+    font-weight: 600;
+    color: black;
+  }
+
+  .review-elements {
+    padding-left: 5%;
+    margin-top: 50px;
+    margin-bottom: 0px;
+  }
+
+  /* review section */
+  .reviews {
+    font-size: 36px;
+    line-height: 49px;
+  }
+
+  .star-review-coll {
+    font-size: 18px;
+    margin-top: -20px;
+    margin-left: 20px;
+    padding: 0;
+  }
+
+  .review-star-img {
+    position: relative;
+    right: 7px;
+    bottom: 5px;
+  }
+
+  .A-circle-review {
+    background: #C4C4C4;
+    color: #fff;
+    padding: 10px 25px;
+    padding-top: 8px;
+    border-radius: 50%;
+    font-size: 50px;
+    font-weight: bold;
+    height: 5rem;
+  }
+
+  .A-circle-size-review {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .A-circle-size-review::before {
+    position: absolute;
+    bottom: 20px;
+    left: 120px;
+    /* content: "{{review.user.first_name}}"; */
+    font-size: 35px;
+    display: block;
+    color: black;
+    font-weight: bold;
+
+  }
+
+  .A-circle-size-review::after {
+    position: absolute;
+    bottom: 7px;
+    left: 120px;
+    /* content: "December 2021"; */
+    font-size: 15px;
+    display: block;
+    color: black;
+    font-weight: bold;
+  }
+
+  .review-para {
+    font-size: 20px;
+  }
+  .container-grid{
+    padding-top: 100px;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2,1fr);
+    gap: 2px;
+    
+  }
+  .one{
+    grid-column: 1;
+    grid-row: 1/3;
+    background-color: gold;
+    background-image: url({{event.first_photo}});
+    background-size:cover;
+    background-position: center;
+  }
+  .two{
+    grid-row: 1/2;
+    grid-column: 2;
+    background-color: gray;
+    background-size:cover;
+    background-position: center;
+  }
+  .three{
+    grid-row: 2/3;
+    grid-column: 2;
+    background-size:cover;
+    background-position: center;
+  }
+
+  .profile-image{
+        border-radius: 50%;
+        height: 5rem;
+    }
+
+    .A-image{
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+</style>
+<!-- 
+
+<div class="intro container-fluid">
+  <div class="row r1">
+    <div class="col-lg-6">
+      <div class="test">
+
+
+        <img class="top-left-img" src="{{event.first_photo}}" alt="">
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row r2">
+        <div class="col-lg-12 col-sm-6">
+          <div class="test2">
+
+
+            <img class="right-top-img" src="images/right-top.svg" alt="">
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-6">
+          <div class="test3">
+
+
+            <img class="right-bottom-img" src="images/right-bottom.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div> -->
+
+<div class=" container-fluid container-grid">
+  <div class="one">
+    <!-- <img class="" src="{{event.first_photo}}" alt=""> -->
+  </div>
+  <div class="two" style = "background-image: url({{event.second_photo}});">
+
+  </div>
+  <div class="three" style="background-image: url({{event.third_photo}});">
+
+  </div>
+</div>
+
+
+
+<div class="container-fluid event-details">
+  <div class="row">
+    <div class="col-lg-7 simple-details">
+      <div class="row row-left">
+        <div class="col-md-8  ">
+          <h3 class="event-name">{{event.name}}</h3>
+          <p style="color: rgb(148, 148, 148);"><b>{{event.address}}, {{event.city}}</b></p>
+          <a class="fav" href="#">Save to Favourite</a>
+          <img class="love" src="{% static 'images/event-detail/heart.svg' %}" alt="">
+
+
+        </div>
+        <div class=" col-md-4 price-div">
+
+
+          <p class="price-div-text" style="text-align: center; transform: translateY(20px); background-color: #8646EF; width: 120px; padding: 10px; border-radius: 25%; color: white;">Price: Rs.{{event.price}}</p>
+
+
+
+
+        </div>
+        <hr style="height:3px;">
+        <p class="event-part">{{event.description}}</p>
+      </div>
+
+
+
+    </div>
+    <div class="col-lg-5 t">
+
+      <div class="event-details1">
+
+
+        <div class="event-info">
+          <h3 class="event-head">Organizer:</h3>
+          <hr class="dot">
+          <div class="A-circle-size">
+
+            <!-- <span class="A-circle">A</span> -->
+            <a href="{{event.organizer.get_absolute_url}}" style="text-decoration: none;">
+              {% if user_obj.avatar %}
+              <div class="A-image A-circle-size">
+                  <img class="profile-image" src="{{event.organizer.avatar.url}}" alt="profile-img">
+              </div>
+              {% else %}
+              <div class="A-circle-size">
+                  <span class="A-circle" style="color: black;">{{event.organizer.first_name|first}}</span>
+              </div>
+              {% endif %}
+              
+            </a>
+          
+          </div>
+
+
+
+        </div>
+
+      </div>
+      <div class="event-details1">
+        <div class="event-info">
+          <h3 class="event-head">Events Details:</h3>
+          <hr class="dot">
+          <p class="event-specific">Date : {{event.event_date}}</p>
+          <p class="event-specific">Start Time: {{event.event_start}}</p>
+          <p class="event-specific">End Time: {{event.event_end}}</p>
+          <p class="event-specific">Event Type: {{event.event_type}}</p>
+        </div>
+      </div>
+      {% if event.organizer == user %}
+      <a href="{% url 'events:edit' event.pk %}">
+        <button type="button" class="register-button"><b>Edit your Event</b></button>
+      </a>
+      <a href="{% url 'events:approve' event.pk %}">
+        <button type="button" class="register-button"><b>Approve Registration</b></button>
+      </a>
+      {% else %}
+      <a href="#">
+        {% if participated %}
+        <form method="POST" action="{% url 'reservations:view_status' event.id %}">
+          {% csrf_token %}
+          <button type="submit" class="register-button"><b>View Registration Status</b></button>
+        </form>
+        {% else %}
+          <form method="POST" action="{% url 'reservations:register' event.id %}">
+          {% csrf_token %}
+          <button type="submit" class="register-button"><b>Click here to register {{participated}} </b></button>
+          </form>
+        {% endif %}
+      </a>
+      {% endif %}
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-7  event-rules">
+      <div class="rule-elements">
+        <hr style="height:3px;">
+
+        <p class="rules"><b>Event Rules:</b></p>
+        <ul>
+          {% for rule in event.event_rule.all %}
+            <li>{{rule}}</li>
+          {% endfor %}
+        </ul>
+        <hr style="height:3px;">
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-7  event-reviews">
+      <div class="review-elements">
+        <p class="reviews"><b>Reviews:</b></p>
+        <p class="star-review-coll"><img class="review-star-img" src="{% static 'images/event-detail/review-star.svg' %}"><span
+            style="font-weight:bold; font-size:22px;">{{event.total_rating}} | 5 <span style="margin-left: 20px;">Total Review:{{event.reviews.count}}</span> </span></p>
+        
+            {% for review in event.reviews.all %}
+        <div class="A-circle-size-review" style="display: flex; vertical-align: middle;">
+
+          <!-- <span class="A-circle-review">A</span> -->
+
+          {% if review.user.avatar %}
+          <div class="A-image" style="display: flex; vertical-align: middle;">
+              <img class="profile-image" src="{{review.user.avatar.url}}" alt="profile-img">
+          </div>
+          {% else %}
+          
+              <span class="A-circle-review">{{review.user.first_name|first}}</span>
+          
+          {% endif %}
+
+          <div class="two-property" style="margin-left: 20px;">
+            <div style="font-size: 35px; font-weight: bold;">{{review.user.first_name}}</div>
+            <div style="font-size: 15px; font-weight: bold; color: gray;">{{review.created|date:'F-Y'}}</div>
+          </div>
+        </div>
+        <p class="review-para">{{review.review}}</p>
+
+        <hr style="height:3px;">
+        {% endfor %}
+
+
+        </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

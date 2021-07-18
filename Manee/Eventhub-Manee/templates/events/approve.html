@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Approve</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <style>
+            body {
+                margin:50px;
+            }
+        </style>
+    </head>
+    <body>
+        <table class="table table-striped">
+                <tr>
+                    <th>Username</th>
+                    <th>Status</th>
+                    <th>Approval</th>
+                    <th>Cancel</th>
+                </tr>
+            {% for p in participants %}
+                <tr>
+                   <td>{{ p.user.first_name }} {{p.user.last_name}}</td>
+                   <td>
+                       <h6>{{p.status}}</h6>
+                   </td> 
+                   <td>
+                       <!--if approved dont show button else button-->
+                        {% if p.status == "confirmed" %}
+                            <h6 class="text-success">Approved</h6>
+                        {% elif p.status == "canceled" %}
+                            <h6 class="text-danger">Canceled</h6>
+                        {% else %}
+                            <form method="post" action ="#">
+                                {% csrf_token %}
+                                <button type="subimit" class="btn btn-success">Approve</button>
+                            </form> 
+                        {% endif %}
+                   </td>       
+                   <td>
+                    {% if p.status == "canceled" %}
+                        <h6 class="text-danger">Canceled</h6>
+                    {% else %}
+                        <form method="post" action ="#">
+                            {% csrf_token %}
+                            <button type="subimit" class="btn btn-danger">Cancel</button>
+                        </form> 
+                    {% endif %}
+                   </td>        
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
