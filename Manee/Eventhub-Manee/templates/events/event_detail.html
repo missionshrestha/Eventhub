@@ -660,7 +660,7 @@
       <div class="review-elements">
         <p class="reviews"><b>Reviews:</b></p>
         <p class="star-review-coll"><img class="review-star-img" src="{% static 'images/event-detail/review-star.svg' %}"><span
-            style="font-weight:bold; font-size:22px;">{{event.total_rating}} | 5 <span style="margin-left: 20px;">Total Review:{{event.reviews.count}}</span> </span></p>
+            style="font-weight:bold; font-size:22px;">{{event.total_rating}} | 10 <span style="margin-left: 20px;">Total Review:{{event.reviews.count}}</span> </span></p>
         
             {% for review in event.reviews.all %}
         <div class="A-circle-size-review" style="display: flex; vertical-align: middle;">

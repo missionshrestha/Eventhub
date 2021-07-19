@@ -24,6 +24,7 @@ from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from users.models import User
 from users import mixins as user_mixins
 from . import models,forms
 from reservations.models import Reservation
@@ -60,9 +61,23 @@ def event_detail(request,pk):
 def approve(request, pk):
     event = models.Event.objects.get(pk = pk)
     participants = Reservation.objects.filter(event = event)
+    if request.method == "POST":
+        if request.POST["button_checker"] != "canceled":
+            first_name = request.POST["first_name"]
+            user = User.objects.get(first_name = first_name)
+            update_status = Reservation.objects.get(event = event, user = user)
+            update_status.status = "confirmed"
+            update_status.save()
+        else:
+            first_name = request.POST["f_name"]
+            user = User.objects.get(first_name = first_name)
+            update_status = Reservation.objects.get(event = event, user = user)
+            update_status.status = "canceled"
+            update_status.save()
+            
     args = {
         "event": event,
-        "participants": participants
+        "participants": participants,
     }
     return render(request, "events/approve.html", args)
 
