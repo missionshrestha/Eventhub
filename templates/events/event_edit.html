@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page_name %}
+    Update Event 
+{% endblock page_name %}
+
+{% block search-bar %}
+
+{% endblock search-bar %}
+
+{% block content %}
+
+
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Muli&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Muli", sans-serif;
+}
+
+.container-main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+  padding-top: 100px;
+  padding-bottom: 50px;
+  overflow-y: scroll ;
+}
+.box{
+  background: rgba(65, 156, 214, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-text{
+  /* font-family: Muli; */
+  color: dodgerblue;
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+}
+.secondary-text{
+  font-size: 2rem;
+  margin-top: 8rem;
+  color: #E3EBF0;
+  font-style: normal;
+  font-weight: normal;
+}
+.password-change-main
+{
+  /* margin-top: 3rem; */
+  padding: 0.1rem;
+  height:2.5rem;
+  width:16rem;
+  background: #419CD6;
+  border-radius: 15px;
+  border: none;
+  z-index: 100;
+  vertical-align: middle;
+}
+.text-inside-buttom{
+  font-size: 1.6rem;
+  color: #E3EBF0;
+}
+
+.box-2{
+  height: 55rem;
+  width: 55rem;
+  background: #E5E5E5;
+}
+
+.right-side{
+  color: gray;
+  margin-bottom: 2rem;
+  display: none;
+}
+
+
+.cross{
+  position: absolute;
+  right: 4rem;
+  top: 6rem;
+}
+
+/* profile photo*/
+.A-circle {
+        background: #C4C4C4;
+        color: #fff;
+        padding: 10px 20px;
+        padding-top: 8px;
+        border-radius: 50%;
+        font-size: 35px;
+        font-weight: bold;
+    }
+    .profile-image{
+        border-radius: 50%;
+        height: 5rem;
+        width: 5rem;
+    }
+
+    .A-image{
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    .A-circle-size {
+        margin-bottom: 20px;
+        transform: scale(1.3);
+    }
+textarea{
+    resize: none;
+    height:55px;
+}
+.spacer{
+  margin-bottom: 1.6rem;
+}
+.input-group-text{
+    padding-right: 20px;
+}
+
+.myFieldclass{
+    border: 1px solid dodgerblue;
+    border-radius: 1px;
+    padding: 10px;
+    width: 20rem;
+}
+
+.myFieldclass:focus-within
+{
+    /* box-sizing: border-box; */
+    outline: none;
+    outline: thin solid green;
+    
+}
+.event-description{
+  height: 450px;
+  border: 1px solid dodgerblue;
+    border-radius: 1px;
+    padding: 10px;
+}
+.event-description:focus-within
+{
+    /* box-sizing: border-box; */
+    outline: none;
+    outline: thin solid green;
+    
+}
+
+.name-space{
+  padding-right: 55px;
+}
+.price-space{
+  padding-right: 65px;
+}
+.start-time-space{
+  padding-right: 27px;
+}
+.end-time-space{
+  padding-right: 35px;
+}
+.city-space{
+  padding-right: 75px;
+}
+.address-space{
+  padding-right: 41px;
+}
+.event-type-space{
+  padding-right: 22px;
+}
+.event-description-space{
+  height: 450px;
+}
+.time{
+  width: 100px;
+}
+.tertiary-text{
+  font-size: medium;
+  background-color: gold;
+  border-radius: 20px;
+}
+
+
+@media only screen and (max-width: 650px) {
+  .cross{
+    position: absolute;
+    right: 4rem;
+    top: 6rem;
+  }
+}
+
+</style>
+<div class="container-main">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+            <p class="main-text">Edit your Event detail:</p>
+
+              <div class="input-group flex-nowrap spacer w-100 " >
+                <span class="input-group-text name-space" id="addon-wrapping">Name</span>
+                {{form.name}}
+              </div>
+              {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                        <span style="color: red; position: relative; top: -10px; left: -20px;">{{error}}</span>
+                    {% endfor %}
+              {% endif %}
+              <div class="input-group flex-nowrap spacer w-100 " >
+                <span class="input-group-text address-space" id="addon-wrapping">Address</span>
+                {{form.address}}
+              </div>
+              {% if form.address.errors %}
+                  {% for error in form.address.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+              <div class="input-group flex-nowrap spacer w-100 " >
+                <span class="input-group-text city-space" id="addon-wrapping">City</span>
+                {{form.city}}
+              </div>
+              {% if form.city.errors %}
+                  {% for error in form.city.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+            <div class="input-group flex-nowrap spacer w-100 " >
+              <span class="input-group-text date-space" id="addon-wrapping">Event Date</span>
+              {{form.event_date}}
+            </div>
+            {% if form.event_date.errors %}
+                  {% for error in form.event_date.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+            <div class="input-group flex-nowrap spacer w-100 " >
+              <span class="input-group-text start-time-space" id="addon-wrapping">Start Time</span>
+              {{form.event_start}}
+            </div>
+            {% if form.event_start.errors %}
+                  {% for error in form.event_start.errors %}
+                      <span style="color: red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+            <div class="input-group flex-nowrap spacer w-100 " >
+              <span class="input-group-text end-time-space" id="addon-wrapping">End Time</span>
+              {{form.event_end}}
+            </div>
+            {% if form.event_end.errors %}
+                  {% for error in form.event_end.errors %}
+                      <span style="color: red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+            <div class="input-group flex-nowrap spacer w-100 " >
+              <span class="input-group-text event-type-space" id="addon-wrapping">Event Type</span>
+              {{form.event_type}}
+            </div>
+            {% if form.event_type.errors %}
+                  {% for error in form.event_type.errors %}
+                      <span style="color: red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+            <div class="input-group flex-nowrap spacer w-100 " >
+              <span class="input-group-text price-space" id="addon-wrapping">Price</span>
+              {{form.price}}
+            </div>
+            {% if form.price.errors %}
+                  {% for error in form.price.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+
+          <a href="{% url 'events:event_detail' object.pk %}">
+            <div class="cross"><img src="{% static 'images/user-detail/cross.svg'%}" alt=""></div>
+          </a>
+
+                <div class="input-group flex-nowrap spacer w-100 ">
+                    <span class="input-group-text event-description-space" id="addon-wrapping">Description</span>
+                    {{form.description}}
+                </div>
+                {% if form.description.errors %}
+                  {% for error in form.description.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+                <div class="input-group flex-nowrap spacer w-100 ">
+                    <span class="input-group-text event-rule-space" id="addon-wrapping">Event Rule</span>
+                    {{form.event_rule}}
+                </div>
+                {% if form.enent_rule.errors %}
+                  {% for error in form.enent_rule.errors %}
+                      <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
+                  {% endfor %}
+            {% endif %}
+
+
+                <div class="login">
+                        <button class="btn login-button" style="background-color: #419CD6; width:10rem; border-radius: 10px;" type="submit">
+                            <span style="font-size: 15px; vertical-align: center; color: white;"> 
+                                Update Event
+                            </span>
+                        </button>
+                        <a href ="{% url 'events:photos' event.pk %}" class="btn login-button" style="border:1px solid dodgerblue; width:10rem; border-radius: 10px;" type="submit">
+                          <span style="font-size: 15px; vertical-align: center; color: black;"> 
+                              Edit photo
+                          </span>
+                        </a>
+                </div>
+    </form>
+</div>
+
+<script>
+ 
+</script>
+    {% endblock %}
