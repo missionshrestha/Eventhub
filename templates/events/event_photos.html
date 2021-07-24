@@ -32,6 +32,9 @@ body {
   font-family: "Muli", sans-serif;
 }
 
+footer{
+  display: none;
+}
 .container-main{
   display: flex;
   flex-direction: column;
@@ -101,16 +104,17 @@ body {
       <span class="caption">{{photo.caption}}</span>
     </div>
     <div class="two-button">
-      <button class="btn-photo btn-photo-edit"><a href="">Edit</a></button>
-      <button class="btn-photo btn-photo-delete"><a href="{% url 'events:delete-photo' event.pk photo.pk %}">Delete</a></button>
+      <a href="{% url 'events:edit-photo' event.pk photo.pk %}"><button class="btn-photo btn-photo-edit">Edit</button></a>
+      <a href="{% url 'events:delete-photo' event.pk photo.pk %}"><button class="btn-photo btn-photo-delete">Delete</button></a>
     </div>
   </div>
   {% endfor %}
   <div style="display: flex;">
-        <button class="btn-photo" style="background-color:dodgerblue;">Upload photo</button>
-        <button class="btn-photo" style="background-size: white;
+        <a href="{% url 'events:add-photo' event.pk %}"><button class="btn-photo" style="background-color:dodgerblue;">Upload photo</button></a>
+        
+        <a href="{% url 'events:edit' event.pk %}"><button class="btn-photo" style="background-size: white;
         color: black; border: 1px solid dodgerblue; margin-left: 30px;
-        width: 180px;">Back to event edit</button>
+        width: 180px;">Back to event edit</button></a>
   </div>
 </div>
 

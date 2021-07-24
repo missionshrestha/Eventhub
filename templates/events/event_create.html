@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block page_name %}
-    Update Event 
+    Create Event 
 {% endblock page_name %}
 
 {% block search-bar %}
@@ -210,7 +210,7 @@ textarea{
 <div class="container-main">
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-            <p class="main-text">Edit your Event detail:</p>
+            <p class="main-text">Create your Event:</p>
 
               <div class="input-group flex-nowrap spacer w-100 " >
                 <span class="input-group-text name-space" id="addon-wrapping">Name</span>
@@ -284,10 +284,11 @@ textarea{
                       <span style="display:inline-block; color:  red; position: relative; top: -10px; left: 20px;">{{error}}</span>
                   {% endfor %}
             {% endif %}
-
+            {%comment%}
           <a href="{% url 'events:event_detail' object.pk %}">
             <div class="cross"><img src="{% static 'images/user-detail/cross.svg'%}" alt=""></div>
           </a>
+          {%endcomment%}
 
                 <div class="input-group flex-nowrap spacer w-100 ">
                     <span class="input-group-text event-description-space" id="addon-wrapping">Description</span>
@@ -312,14 +313,16 @@ textarea{
                 <div class="login">
                         <button class="btn login-button" style="background-color: #419CD6; width:10rem; border-radius: 10px;" type="submit">
                             <span style="font-size: 15px; vertical-align: center; color: white;"> 
-                                Update Event
+                                Create Event
                             </span>
                         </button>
+                        {%comment%}
                         <a href ="{% url 'events:photos' event.pk %}" class="btn login-button" style="border:1px solid dodgerblue; width:10rem; border-radius: 10px;" type="submit">
                           <span style="font-size: 15px; vertical-align: center; color: black;"> 
                               Edit photo
                           </span>
                         </a>
+                        {%endcomment%}
                 </div>
     </form>
 </div>

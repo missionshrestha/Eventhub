@@ -7,88 +7,15 @@
 
 {% block content %}
 <style>
-body{
-background-color: #FEFFEC;
-overflow-x: hidden;
+:root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
 }
-
-/****************Navbar *****************8888*/
-.navbar{
-z-index: 1000;
-background-color: #FEFFEC;
-position:fixed;
-width: 100%;
-}
-.navbar-nav{
-  margin-right:50px;
-}
-.navbar-brand{
-  font-size:25px;
-}
-.navbar-brand:hover{
-  font-weight: bold;
-
-}
-.navbar-logo-img{
-  margin-right: 10px;
-  margin-left:20px;
-  opacity: 0.8;
-  }
-  .nav-item-1:hover, .nav-item-2:hover{
-    margin-left: -4px;
-  }
-.nav-item-3:hover{
-  margin-left: -3px;
-}
-
-.btn-nav{
-background-color: #6b6bff;
-
-color: white;
-  border-radius: 14px;
-border:none;
-  padding: 0;
-
-  width:5rem;
-  height: 2rem;
-  margin-top: 4px;
-  margin-left: 8px;
-}
-.btn-nav:hover{
-  position: relative;
-
-  background-color: blue;
-  font-weight: bold;
-  width: 5.3rem;
-  left: 3px;
-margin-left: 3px;
-}
-@media only screen and (max-width: 990px) {
-  .btn-nav{
-    margin-left:0;
-
-  }
-
-  .btn-nav:hover{
-    left:-3px;
-  }
-}
-
-.nav-item-nv:hover{
-
-  font-weight: bold;
-  font-size: 16px;
-/* font-size: 17px; */
-margin-left: 0px;
-
-}
-
-
-
-
-
-
-.introduction{
+    body {
+        background-color: #FEFFEC;
+        overflow-x: hidden;
+    }
+    .introduction{
   background-color: rgba(133, 206, 222, 0.3);
 }
 .intro-img{
@@ -141,6 +68,7 @@ border:none;
   }
 }
 
+<<<<<<< HEAD
 /********************** Choose Us  *********************/
 .choose-us{
   text-align: center;
@@ -460,6 +388,349 @@ footer{
   opacity: 0.8;
 }
 
+=======
+    .choose-us {
+        text-align: center;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    .chooseus-row {
+        margin-left: 40px;
+        margin-right: 50px;
+        margin-top: 110px;
+    }
+
+    @media only screen and (max-width: 990px) {
+        .choose-us-element {
+            margin-top: 30px;
+            margin-bottom: 30px;
+
+        }
+    }
+
+    .chooseus-img {
+        height: 60px;
+        width: 60px;
+    }
+
+    .why-choose-us {
+        position: relative;
+    }
+
+    .why-choose-us::after {
+
+        content: "";
+        display: block;
+        position: absolute;
+
+        border: solid #6A77ED;
+        border-top: none;
+        border-width: thick;
+        width: 14%;
+
+        left: 43.6%;
+        right: 41.04%;
+        top: 138%;
+
+    }
+
+
+
+    /***************************** Achievement **************************/
+    .achievement {
+        text-align: center;
+        margin-top: 150px;
+        margin-bottom: 100px;
+    }
+
+    .achievement-left {
+        position: relative;
+        top: 60px;
+    }
+
+    .achievement-right {
+        text-align: left;
+
+    }
+
+    .achievement-right-text {
+        position: relative;
+        left: 40px;
+        bottom: 50px;
+    }
+
+    .achievement-img {
+        position: relative;
+        right: 20px;
+    }
+
+    @media only screen and (max-width: 765px) {
+
+        .achievement-left {
+            position: static;
+            text-align: center;
+        }
+
+        .achievement-right {
+            position: relative;
+
+            margin-top: 40px;
+            right: 60px;
+
+        }
+
+        .achievement-right-text {
+            position: relative;
+            left: 270px;
+        }
+
+        .achievement-img {
+            position: relative;
+            left: 205px;
+        }
+    }
+
+    /************************** Real stories from real people **********************8*/
+    .stories {
+        text-align: center;
+        /* position: relative; */
+        margin-left: 100px;
+        margin-bottom: 150px;
+    }
+
+    .stories-header-text {
+        position: relative;
+        left: 100px;
+        bottom: 100px;
+    }
+
+    .stories-flex {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        /* margin-left: 300px; */
+    }
+
+    .stories-1 {
+        /* display: inline-block; */
+        /* height:390px; */
+        border: 2px solid;
+        /* box-shadow: 0px 10px 20px rgba(41, 41, 42, 0.07);
+border-radius: 8px; */
+        position: relative;
+        left: 150px;
+        width: 351px;
+        background-color: white;
+    }
+
+    .stories-2 {
+        /* display: inline-block; */
+
+        /* height:390px; */
+        border: 2px solid;
+        /* box-shadow: 0px 10px 20px rgba(41, 41, 42, 0.07);
+border-radius: 8px; */
+        position: relative;
+        bottom: 250px;
+        left: 200px;
+
+        width: 400px;
+        background-color: white;
+    }
+
+    .stories-3 {
+        /* display: inline-block; */
+        /* height:390px; */
+        border: 2px solid;
+        /* box-shadow: 0px 10px 20px rgba(41, 41, 42, 0.07);
+border-radius: 8px; */
+        position: relative;
+        top: 140px;
+        right: 200px;
+        width: 400px;
+        background-color: white;
+    }
+
+    .stories-1-text {
+        position: relative;
+        width: 70%;
+        /* left: 50px;
+  bottom: 15px; */
+        text-align: left;
+        margin-left: 60px;
+        bottom: 25px;
+    }
+
+    .stories-2-text {
+        position: relative;
+        width: 70%;
+        /* left: 50px;
+  bottom: 15px; */
+        text-align: left;
+        margin-left: 80px;
+        bottom: 25px;
+    }
+
+    .stories-3-text {
+        position: relative;
+        width: 70%;
+        /* left: 50px;
+  bottom: 15px; */
+        text-align: left;
+        margin-left: 80px;
+        bottom: 25px;
+    }
+
+    .stories-quote {
+
+        text-align: left;
+        width: 7%;
+        margin-left: -300px;
+        margin-top: 20px;
+    }
+
+    .girl-1 {
+        margin-left: -200px;
+        transform: scale(0.8);
+
+    }
+
+    .girl-1-name {
+        position: relative;
+        bottom: 70px;
+        left: 50px
+    }
+
+    .girl-2-name {
+        position: relative;
+        bottom: 70px;
+        left: 50px
+    }
+
+    .girl-3-name {
+        position: relative;
+        bottom: 70px;
+        left: 50px
+    }
+
+    .stories-header {
+        text-align: left;
+        margin-left: 225px;
+    }
+
+    .stories-header-text {
+        /* position: relative; */
+        left: 100px;
+        bottom: 50px;
+    }
+
+    @media only screen and (max-width: 1300px) {
+
+        /* .intro-text{
+position: relative;
+    right: 60px;
+    bottom: 130px;
+  } */
+        .stories-header {
+            position: relative;
+            right: 220px;
+        }
+
+        .stories-header-img {
+            transform: scale(0.8);
+        }
+
+        .stories-flex {
+            display: inline-block;
+
+        }
+
+        .stories-1 {
+            position: static;
+            margin-left: -60px;
+            margin-bottom: 10px;
+        }
+
+        .stories-2,
+        .stories-3 {
+            position: static;
+            margin-left: -80px;
+            margin-bottom: 10px;
+        }
+
+
+    }
+
+    /************************ Organize With 2 background blue images ******************/
+    .organize-last {
+        text-align: center;
+        margin-bottom: -75px;
+
+    }
+
+    .organize-last-text {
+        font-weight: bolder;
+    }
+
+    .organize-last-first-img {
+        /* position: absolute; */
+
+        position: relative;
+        height: auto;
+        width: 25%;
+        top: 100px;
+        right: 290px;
+
+        z-index: -1;
+    }
+
+    .organize-last-second-img {
+        margin-bottom: -70px;
+        position: relative;
+
+        height: auto;
+        width: 27%;
+        bottom: 200px;
+        left: 290px;
+
+
+        z-index: -1;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .organize-last-first-img {
+            right: 170px;
+        }
+
+        .organize-last-second-img {
+            left: 170px;
+            margin-bottom: 0px;
+        }
+    }
+
+    .organize-last-btn {
+        background-color: #6b6bff;
+
+        color: white;
+        /* border-radius: 14px; */
+        border: none;
+        padding: 0;
+
+        width: 7rem;
+        height: 2rem;
+        margin-top: 30px;
+    }
+
+    .organize-last-btn:hover {
+        position: relative;
+
+        background-color: blue;
+        font-weight: bold;
+        width: 7.2rem;
+
+    }
+>>>>>>> kamal-django-test
 </style>
 
 
@@ -600,8 +871,12 @@ footer{
 
 
 <script>
+<<<<<<< HEAD
 
 $(".navbar-brand").hover(function() {
+=======
+    $(".navbar-brand").hover(function() {
+>>>>>>> kamal-django-test
   $(".navbar-logo-img").css("transform","scale(1.1)");
   $(".navbar-logo-img").css("opacity","1");
 
@@ -623,5 +898,8 @@ $(this).css("transform","scale(1.2)");
 $(this).css("transform","");
 }
 );
+<<<<<<< HEAD
 
+=======
+>>>>>>> kamal-django-test
 </script>

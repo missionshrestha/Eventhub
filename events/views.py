@@ -18,16 +18,19 @@ def all_events(request):
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render,redirect,reverse
-from django.views.generic import ListView,UpdateView
+from django.http import Http404
+from django.views.generic import ListView,UpdateView, CreateView, FormView
 from django.core.paginator import Paginator
 from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from users.models import User
+from reservations.models import Reservation
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.views.generic.edit import CreateView, FormView
 from users import mixins as user_mixins
 from . import models,forms
-from reservations.models import Reservation
 
 class EventView(ListView):
     
@@ -214,3 +217,44 @@ def delete_photo(request,event_pk,photo_pk):
         return redirect(reverse("events:photos",kwargs={"pk":event_pk}))
     except models.Event.DoesNotExist:
         return redirect(reverse("core:home"))
+
+class EditPhotoView(user_mixins.LogInOnlyView, SuccessMessageMixin,UpdateView):
+    
+    model = models.Photo
+    template_name = "events/photo_edit.html"
+    pk_url_kwarg = "photo_pk"
+    success_message = "Photo Updated"
+    fields = (
+        "caption",
+    )
+    
+    def get_success_url(self):
+        event_pk = self.kwargs.get("event_pk")
+        return reverse("events:photos",kwargs={"pk":event_pk})
+
+
+class AddPhotoView(user_mixins.LogInOnlyView,FormView):
+    model = models.Photo
+    template_name = "events/photo_create.html"
+    fields = ["caption","file"]
+    form_class = forms.CreatePhotoForm
+
+    def form_valid(self, form):
+        pk = self.kwargs.get("pk")
+        form.save(pk)
+        messages.success(self.request,"Photo Uploaded")
+        return redirect(reverse("events:photos",kwargs={"pk":pk}))
+
+
+class CreateEventView(user_mixins.LogInOnlyView,FormView):
+    form_class = forms.CreateEventForm
+    template_name = "events/event_create.html"
+
+    def form_valid(self,form):
+        event = form.save()
+        event.organizer = self.request.user
+        event.save()
+        form.save_m2m()
+        messages.success(self.request,"Event Created")
+        return redirect(reverse("events:event_detail",kwargs ={"pk":event.pk}))
+        
