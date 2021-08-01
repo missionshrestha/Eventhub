@@ -37,11 +37,11 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-PROJECT_APPS =[
-    "core.apps.CoreConfig","users.apps.UsersConfig","events.apps.EventsConfig","reviews.apps.ReviewsConfig","reservations.apps.ReservationsConfig","lists.apps.ListsConfig","conversations.apps.ConversationsConfig",
+PROJECT_APPS = [
+    "core.apps.CoreConfig", "users.apps.UsersConfig", "events.apps.EventsConfig", "reviews.apps.ReviewsConfig", "reservations.apps.ReservationsConfig", "lists.apps.ListsConfig", "conversations.apps.ConversationsConfig",
 ]
 
-THIRD_PARTY_APPS = ["django_seed","storages"]
+THIRD_PARTY_APPS = ["django_seed", "storages"]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
@@ -148,7 +148,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.User"
 
-MEDIA_ROOT = BASE_DIR.joinpath('uploads')   # for the upload that we do on the project
+# for the upload that we do on the project
+MEDIA_ROOT = BASE_DIR.joinpath('uploads')
 
 # MEDIA_URL = "/media/" #requires absolute path ( so forward slash) # we are connecting the directory uploads with the media
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'

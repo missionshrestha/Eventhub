@@ -259,6 +259,20 @@ top: 25px;
 .send-icon-button:hover .send-icon-img{
   opacity: 1;
 }
+
+.profile-image{
+        border-radius: 50%;
+        height: 6.5rem;
+        width: 6.5rem;
+        object-fit: cover;
+    }
+
+.A-image{
+  display: inline-block;
+        border-radius: 50%;
+        /* margin-bottom: 10px; */
+}
+
 </style>
 
 
@@ -277,8 +291,19 @@ top: 25px;
   <div class="container-fluid logo">
 
     {% for user in conversation.participants.all %}
-      <div class="A-circle-size A-circle-size-bottom logo1">
-        <div class="A-circle">A</div>
+      <!-- <div class="A-circle-size A-circle-size-bottom logo1">
+        <div class="A-circle">A</div> -->
+
+        {% if user.avatar %}
+            <div class="A-image">
+                <img class="profile-image" src="{{user.avatar.url}}" alt="profile-img">
+            
+            {% else %}
+            <div class="A-circle-size A-circle-size-bottom logo1">
+                <div class="A-circle">{{user.first_name|first}}</div>
+            
+        {% endif %}
+
         <p class="name">{{user.first_name}}</p>
       </div>
       {% if forloop.first %}
