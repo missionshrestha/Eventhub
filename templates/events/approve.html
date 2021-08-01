@@ -1,61 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Approve</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <style>
-            body {
-                margin:50px;
-            }
-            div {
-                margin-top:50px;
-            }
-        </style>
-    </head>
-    <body>
-        <h1> Users who have registered in your Event.</h1>
-        <div class="container">
-        <table class="table table-striped">
-                <tr>
-                    <th>Username</th>
-                    <th>Status</th>
-                    <th>Approval</th>
-                    <th>Cancel</th>
-                </tr>
-            {% for p in participants %}
-                <tr>
-                   <td>{{ p.user.first_name }} {{p.user.last_name}}</td>
-                   <td>
-                       <h6>{{p.status}}</h6>
-                   </td> 
-                   <td>
-                       <!--if approved dont show button else button-->
-                        {% if p.status == "confirmed" %}
-                            <h6 class="text-success">Confirmed</h6>
-                        {% else %}
-                            <form method="post" action ="{% url 'events:approve' p.event.pk %}">
-                                {% csrf_token %}
-                                <input type ="hidden" name="button_checker" value="not_canceled">
-                                <input type ="hidden" name="first_name" value = "{{p.user.first_name}}">
-                                <button type="submit" class="btn btn-success">Confirm</button>
-                            </form> 
-                        {% endif %}
-                   </td>       
-                   <td>
-                    {% if p.status == "canceled" %}
-                        <h6 class="text-danger">Canceled</h6>
-                    {% else %}
-                        <form method="post" action ="{% url 'events:approve' p.event.pk %}">
-                            {% csrf_token %}
-                            <input type ="hidden" name="button_checker" value="canceled">
-                            <input type ="hidden" name="f_name" value = "{{p.user.first_name}}">
-                            <button type="submit" class="btn btn-danger">Cancel</button>
-                        </form> 
-                    {% endif %}
-                   </td>        
-                </tr>
-            {% endfor %}
-        </table>
-        </div>
-    </body>
+  <head>
+    <title>Approve</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        margin: 50px;
+      }
+      div {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Users who have registered in your Event.</h1>
+    <div class="container">
+      <table class="table table-striped">
+        <tr>
+          <th>Username</th>
+          <th>Status</th>
+          <th>Approval</th>
+          <th>Chat</th>
+          <th>Cancel</th>
+        </tr>
+        {% for p in participants %}
+        <tr>
+          <td>{{ p.user.first_name }} {{p.user.last_name}}</td>
+          <td>
+            <h6>{{p.status}}</h6>
+          </td>
+          <td>
+            <!--if approved dont show button else button-->
+            {% if p.status == "confirmed" %}
+            <h6 class="text-success">Confirmed</h6>
+            {% else %}
+            <form method="post" action="{% url 'events:approve' p.event.pk %}">
+              {% csrf_token %}
+              <input type="hidden" name="button_checker" value="not_canceled" />
+              <input
+                type="hidden"
+                name="first_name"
+                value="{{p.user.first_name}}"
+              />
+              <button type="submit" class="btn btn-success">Confirm</button>
+            </form>
+            {% endif %}
+          </td>
+          <td>
+            <a
+              href="{% url 'conversations:go' p.event.organizer.pk p.user.pk %}"
+              ><button type="submit" class="btn btn-success">Chat</button></a
+            >
+          </td>
+          <td>
+            {% if p.status == "canceled" %}
+            <h6 class="text-danger">Canceled</h6>
+            {% else %}
+            <form method="post" action="{% url 'events:approve' p.event.pk %}">
+              {% csrf_token %}
+              <input type="hidden" name="button_checker" value="canceled" />
+              <input
+                type="hidden"
+                name="f_name"
+                value="{{p.user.first_name}}"
+              />
+              <button type="submit" class="btn btn-danger">Cancel</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </body>
 </html>
