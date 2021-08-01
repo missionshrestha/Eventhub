@@ -41,7 +41,7 @@ PROJECT_APPS =[
     "core.apps.CoreConfig","users.apps.UsersConfig","events.apps.EventsConfig","reviews.apps.ReviewsConfig","reservations.apps.ReservationsConfig","lists.apps.ListsConfig","conversations.apps.ConversationsConfig",
 ]
 
-THIRD_PARTY_APPS = ["django_seed"]
+THIRD_PARTY_APPS = ["django_seed","storages"]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
@@ -120,10 +120,20 @@ USE_L10N = True
 USE_TZ = True
 
 
+DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
+STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
+
+STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+
+AZURE_ACCOUNT_NAME = "eventhubkustorage"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -140,7 +150,8 @@ AUTH_USER_MODEL = "users.User"
 
 MEDIA_ROOT = BASE_DIR.joinpath('uploads')   # for the upload that we do on the project
 
-MEDIA_URL = "/media/" #requires absolute path ( so forward slash) # we are connecting the directory uploads with the media
+# MEDIA_URL = "/media/" #requires absolute path ( so forward slash) # we are connecting the directory uploads with the media
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 
 # email configuration
 EMAIL_HOST = "smtp.mailgun.org"

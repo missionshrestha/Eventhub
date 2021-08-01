@@ -9,6 +9,7 @@ pillow = "*"
 django-seed = "*"
 django-dotenv = "*"
 requests = "*"
+django-storages = {extras = ["azure"], version = "*"}
 
 [dev-packages]
 
