@@ -1,15 +1,26 @@
+from django.forms.models import ModelForm
 import users
 from django import forms
 from django.forms import fields
 from django.shortcuts import redirect,reverse
 from . import models
+
+
 class SearchForm(forms.Form):
 
-    address = forms.CharField(initial="Anywhere")
-    city = forms.CharField(initial="Anywhere")
+    #address = forms.CharField(initial="Anywhere")
+    address = forms.CharField(initial="Anywhere", required=False)
+    address.widget.attrs.update({'class':'form-control'})
+    city = forms.CharField(initial="Anywhere", required=False)
+    city.widget.attrs.update({'class':'form-control'})
     event_type = forms.ModelChoiceField(required=False,empty_label="Any Kind", queryset=models.EventType.objects.all())
+    event_type.widget.attrs.update({'class':'form-control'})
     price = forms.IntegerField(required=False)
-    super_organizer = forms.BooleanField(required=False)
+    price.widget.attrs.update({'class':'form-control'})
+    
+    
+
+
     
 
 class UpdateForm(forms.ModelForm):

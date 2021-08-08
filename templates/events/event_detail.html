@@ -600,31 +600,52 @@
         <div class="event-info">
           <h3 class="event-head">Events Details:</h3>
           <hr class="dot">
+          {% if ended %}
           <p class="event-specific">Date : {{event.event_date}}</p>
           <p class="event-specific">Start Time: {{event.event_start}}</p>
           <p class="event-specific">End Time: {{event.event_end}}</p>
           <p class="event-specific">Event Type: {{event.event_type}}</p>
+          
+          {% else %}
+          <p class="event-specific">Event has Ended</p>
+          {% endif %}
         </div>
       </div>
       {% if event.organizer == user %}
-      <a href="{% url 'events:edit' event.pk %}">
-        <button type="button" class="register-button"><b>Edit your Event</b></button>
-      </a>
-      <a href="{% url 'events:approve' event.pk %}">
-        <button type="button" class="register-button"><b>Approve Registration</b></button>
-      </a>
+        {% if ended %}
+          <a href="{% url 'events:edit' event.pk %}">
+            <button type="button" class="register-button"><b>Edit your Event</b></button>
+          </a>
+          
+          <a href="{% url 'events:approve' event.pk %}">
+            <button type="button" class="register-button"><b>Approve Registration</b></button>
+          </a>
+          {% else %}
+            <button type="button" class="register-button" disabled><b>Event Ended</b></button>
+          {% endif %}
       {% else %}
       <a href="#">
         {% if participated %}
-        <form method="POST" action="{% url 'reservations:view_status' event.id %}">
-          {% csrf_token %}
-          <button type="submit" class="register-button"><b>View Registration Status</b></button>
-        </form>
+          {% if ended %}
+            <form method="POST" action="{% url 'reservations:view_status' event.id %}">
+              {% csrf_token %}
+              <button type="submit" class="register-button"><b>View Registration  Status</b></button>
+            </form>
+          {% else %}
+            <form method="POST" action="{% url 'reservations:view_status' event.id %}">
+              {% csrf_token %}
+              <button type="submit" class="register-button"><b>Give a Review</b></button>
+            </form>
+          {% endif %}
         {% else %}
-          <form method="POST" action="{% url 'reservations:register' event.id %}">
-          {% csrf_token %}
-          <button type="submit" class="register-button"><b>Click here to register {{participated}} </b></button>
-          </form>
+          {% if ended %}
+            <form method="POST" action="{% url 'reservations:register' event.id %}">
+            {% csrf_token %}
+            <button type="submit" class="register-button"><b>Click here to register </b></button>
+            </form>
+          {% else %}
+            <button type="submit" class="register-button"><b>Event Ended</b></button>
+          {% endif %}
         {% endif %}
       </a>
       {% endif %}
@@ -654,13 +675,18 @@
     </div>
   </div>
 </div>
+
+{% if ended %}
+<hr>
+<h4 style="margin-left:55px;">Reviews can be viewed here once the Tournament Ends.</h4>
+{% else %}
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-7  event-reviews">
       <div class="review-elements">
         <p class="reviews"><b>Reviews:</b></p>
         <p class="star-review-coll"><img class="review-star-img" src="{% static 'images/event-detail/review-star.svg' %}"><span
-            style="font-weight:bold; font-size:22px;">{{event.total_rating}} | 10 <span style="margin-left: 20px;">Total Review:{{event.reviews.count}}</span> </span></p>
+            style="font-weight:bold; font-size:22px;">{{event.total_rating}} | 10.0 <span style="margin-left: 20px;">Total Review:{{event.reviews.count}}</span> </span></p>
         
             {% for review in event.reviews.all %}
         <div class="A-circle-size-review" style="display: flex; vertical-align: middle;">
@@ -678,7 +704,7 @@
           {% endif %}
 
           <div class="two-property" style="margin-left: 20px;">
-            <div style="font-size: 35px; font-weight: bold;">{{review.user.first_name}}</div>
+            <div style="font-size: 35px; font-weight: bold;">{{review.user.first_name}} {{review.user.last_name}}</div>
             <div style="font-size: 15px; font-weight: bold; color: gray;">{{review.created|date:'F-Y'}}</div>
           </div>
         </div>
@@ -692,6 +718,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 
 {% endblock %}

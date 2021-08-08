@@ -15,6 +15,8 @@ def all_events(request):
         return redirect('/events')
 
 '''
+import datetime
+import reviews
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render,redirect,reverse
@@ -26,11 +28,14 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from users.models import User
 from reservations.models import Reservation
+from reviews.models import Review
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.views.generic.edit import CreateView, FormView
 from users import mixins as user_mixins
 from . import models,forms
+from django.db.models import Q
+
 
 class EventView(ListView):
     
@@ -42,9 +47,19 @@ class EventView(ListView):
     
 
 def event_detail(request,pk):
+    if request.method == "POST":
+        event = models.Event.objects.get(pk = pk)
+        user = request.user
+        review = request.POST["review"]
+        rating = request.POST["rating"]
+        Review.objects.create(review= review, rating = rating, user = user, event = event)
+
+    current = datetime.datetime.now()
+    now = datetime.date(current.year, current.month, current.day)
     try:
         a = False
         event = models.Event.objects.get(pk=pk)
+        ended = event.event_date > now
         if request.user.is_authenticated: 
             reservation = Reservation.objects.filter(user=request.user)
             for r in reservation:
@@ -55,7 +70,8 @@ def event_detail(request,pk):
                     continue
         args = {
             "event":event,
-            "participated": a
+            "participated": a,
+            "ended": ended
         }
         return render(request,"events/event_detail.html", args)
     except models.Event.DoesNotExist:
@@ -66,14 +82,14 @@ def approve(request, pk):
     participants = Reservation.objects.filter(event = event)
     if request.method == "POST":
         if request.POST["button_checker"] != "canceled":
-            first_name = request.POST["first_name"]
-            user = User.objects.get(first_name = first_name)
+            user_id = request.POST["user_id"]
+            user = User.objects.get(pk = user_id)
             update_status = Reservation.objects.get(event = event, user = user)
             update_status.status = "confirmed"
             update_status.save()
         else:
-            first_name = request.POST["f_name"]
-            user = User.objects.get(first_name = first_name)
+            u_id = request.POST["u_id"]
+            user = User.objects.get(pk = u_id)
             update_status = Reservation.objects.get(event = event, user = user)
             update_status.status = "canceled"
             update_status.save()
@@ -83,7 +99,7 @@ def approve(request, pk):
         "participants": participants,
     }
     return render(request, "events/approve.html", args)
-
+    
 def search(request):
     
     city = request.GET.get("city")
@@ -125,9 +141,6 @@ def search(request):
         form = forms.SearchForm()
 
     return render(request, "events/search.html",{"form":form,})
-    
-    
-
 
 
 '''Implementing searching without using django form'''

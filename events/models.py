@@ -26,7 +26,6 @@ class EventRule(AbstractType):
         verbose_name_plural = "Event Rules"
 
 
-
 class Event(core_models.TimeStampedModel):
 
     """Event model defination"""

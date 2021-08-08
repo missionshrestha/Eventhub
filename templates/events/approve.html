@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Approve</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <style>
-            body {
-                margin:50px;
-            }
-            div {
-                margin-top:50px;
-            }
-        </style>
-    </head>
-    <body>
+{% extends "base.html" %}
+{% load static %}
+{% block page_name %}
+Approve
+{% endblock page_name%}
+
+{% block content %}
+
+
         <h1> Users who have registered in your Event.</h1>
-        <div class="container">
+        <div class="container" style="margin-top:5%">
         <table class="table table-striped">
                 <tr>
                     <th>Username</th>
@@ -36,7 +30,7 @@
                             <form method="post" action ="{% url 'events:approve' p.event.pk %}">
                                 {% csrf_token %}
                                 <input type ="hidden" name="button_checker" value="not_canceled">
-                                <input type ="hidden" name="first_name" value = "{{p.user.first_name}}">
+                                <input type ="hidden" name="user_id" value = "{{p.user.id}}">
                                 <button type="submit" class="btn btn-success">Confirm</button>
                             </form> 
                         {% endif %}
@@ -48,7 +42,7 @@
                         <form method="post" action ="{% url 'events:approve' p.event.pk %}">
                             {% csrf_token %}
                             <input type ="hidden" name="button_checker" value="canceled">
-                            <input type ="hidden" name="f_name" value = "{{p.user.first_name}}">
+                            <input type ="hidden" name="u_id" value = "{{p.user.id}}">
                             <button type="submit" class="btn btn-danger">Cancel</button>
                         </form> 
                     {% endif %}
@@ -57,5 +51,4 @@
             {% endfor %}
         </table>
         </div>
-    </body>
-</html>
+{% endblock %}
