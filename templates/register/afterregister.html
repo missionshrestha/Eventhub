@@ -331,7 +331,43 @@ margin-bottom: 20px;
               <button type="submit" class=" button-edit" data-aos="zoom-in">
                 <p class="button-text">Cancel Registration</p>
               </button>
-            </form>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="intro container-fluid">
+    <div class="row row1">
+      <div class="col-lg-6">
+        <img class="profile-intro-img-invisible" src="images/wwe.jpg" alt="">
+      </div>
+      <div class="col-lg-6">
+
+        <div class="container" data-aos="slide-up">
+
+          <div class="send-message-div">
+            <h1>Contact your Event Host:</h1>
+            <div class="container-fluid">
+              <div class="row row2">
+                <div class="col-lg-6">
+                  <div class="A-circle-size A-circle-size-bottom">
+                    <span class="A-circle">{{event.organizer.first_name|first}}</span>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <a href="{% url 'conversations:go' event.organizer.pk reservation.user.pk %}">
+                    <button type="button" class=" button-edit button-bottom-edit" data-aos="zoom-in">
+                      <p class="button-text">Send Message</p>
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
           {% endif %}
         </div>
@@ -353,7 +389,7 @@ margin-bottom: 20px;
         {% csrf_token %}
         <p class="leave-review">This event has ended. Please leave a review:</p>
         <div class="rating">
-        <p style="font-size:25px; font-weight:bold;">Rating: <input   style="width:50px;" type="text" name="rating" value=""></p>
+        <p style="font-size:25px; font-weight:bold;">Rating out of 10: <input   style="width:50px;" type="text" name="rating" value=""></p>
         </div>
         <h3 style="margin-bottom:30px; padding-top:20px;text-align:left;margin-left:3%;">Leave a Review:</h3>
         <textarea placeholder="Your Comment" name="review"></textarea><br>
@@ -368,43 +404,6 @@ margin-bottom: 20px;
 {% else %}
   <p>       </p>
   
-{% endif %}
-
-{% if ended %}
-{% else %}
-<div class="intro container-fluid">
-  <div class="row row1">
-    <div class="col-lg-6">
-      <img class="profile-intro-img-invisible" src="images/wwe.jpg" alt="">
-    </div>
-    <div class="col-lg-6">
-
-      <div class="container" data-aos="slide-up">
-        <div class="send-message-div">
-          <h1>Contact your Event Host:</h1>
-          <div class="container-fluid">
-            <div class="row row2">
-              <div class="col-lg-6">
-                <div class="A-circle-size A-circle-size-bottom">
-                  <span class="A-circle">{{event.organizer.first_name|first}}</span>
-
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <a href="#">
-                  <button type="button" class=" button-edit button-bottom-edit" data-aos="zoom-in">
-                    <p class="button-text">Send Message</p>
-                  </button>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
 {% endif %}
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>

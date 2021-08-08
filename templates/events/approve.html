@@ -6,49 +6,63 @@ Approve
 
 {% block content %}
 
-
-        <h1> Users who have registered in your Event.</h1>
-        <div class="container" style="margin-top:5%">
-        <table class="table table-striped">
-                <tr>
-                    <th>Username</th>
-                    <th>Status</th>
-                    <th>Approval</th>
-                    <th>Cancel</th>
-                </tr>
-            {% for p in participants %}
-                <tr>
-                   <td>{{ p.user.first_name }} {{p.user.last_name}}</td>
-                   <td>
-                       <h6>{{p.status}}</h6>
-                   </td> 
-                   <td>
-                       <!--if approved dont show button else button-->
-                        {% if p.status == "confirmed" %}
-                            <h6 class="text-success">Confirmed</h6>
-                        {% else %}
-                            <form method="post" action ="{% url 'events:approve' p.event.pk %}">
-                                {% csrf_token %}
-                                <input type ="hidden" name="button_checker" value="not_canceled">
-                                <input type ="hidden" name="user_id" value = "{{p.user.id}}">
-                                <button type="submit" class="btn btn-success">Confirm</button>
-                            </form> 
-                        {% endif %}
-                   </td>       
-                   <td>
-                    {% if p.status == "canceled" %}
-                        <h6 class="text-danger">Canceled</h6>
-                    {% else %}
-                        <form method="post" action ="{% url 'events:approve' p.event.pk %}">
-                            {% csrf_token %}
-                            <input type ="hidden" name="button_checker" value="canceled">
-                            <input type ="hidden" name="u_id" value = "{{p.user.id}}">
-                            <button type="submit" class="btn btn-danger">Cancel</button>
-                        </form> 
-                    {% endif %}
-                   </td>        
-                </tr>
-            {% endfor %}
-        </table>
-        </div>
+    <h1>Users who have registered in your Event.</h1>
+    <div class="container" style="margin-top:50px">
+      <table class="table table-striped">
+        <tr>
+          <th>Username</th>
+          <th>Status</th>
+          <th>Approval</th>
+          <th>Chat</th>
+          <th>Cancel</th>
+        </tr>
+        {% for p in participants %}
+        <tr>
+          <td>{{ p.user.first_name }} {{p.user.last_name}}</td>
+          <td>
+            <h6>{{p.status}}</h6>
+          </td>
+          <td>
+            <!--if approved dont show button else button-->
+            {% if p.status == "confirmed" %}
+            <h6 class="text-success">Confirmed</h6>
+            {% else %}
+            <form method="post" action="{% url 'events:approve' p.event.pk %}">
+              {% csrf_token %}
+              <input type="hidden" name="button_checker" value="not_canceled" />
+              <input
+                type="hidden"
+                name="user_id"
+                value="{{p.user.id}}"
+              />
+              <button type="submit" class="btn btn-success">Confirm</button>
+            </form>
+            {% endif %}
+          </td>
+          <td>
+            <a
+              href="{% url 'conversations:go' p.event.organizer.pk p.user.pk %}"
+              ><button type="submit" class="btn btn-success">Chat</button></a
+            >
+          </td>
+          <td>
+            {% if p.status == "canceled" %}
+            <h6 class="text-danger">Canceled</h6>
+            {% else %}
+            <form method="post" action="{% url 'events:approve' p.event.pk %}">
+              {% csrf_token %}
+              <input type="hidden" name="button_checker" value="canceled" />
+              <input
+                type="hidden"
+                name="u_id"
+                value="{{p.user.id}}"
+              />
+              <button type="submit" class="btn btn-danger">Cancel</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
 {% endblock %}
