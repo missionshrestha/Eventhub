@@ -1,6 +1,6 @@
 {%comment%}
 <h3>
-    <a href="{% url " events:event_detail" event.pk %}">
+    <a href="{% url 'events:event_detail' event.pk %}">
         <!-- <img src="{{event.first_photo}}" /> -->
         {{event.name}}
     </a>
@@ -10,10 +10,10 @@
 {% load static %}
 
 <style>
-    body{
-    background-color: #FFFFFF;
-    position: relative;
-    overflow-x: hidden;
+    body {
+        background-color: #FFFFFF;
+        position: relative;
+        overflow-x: hidden;
     }
 
     .events {
@@ -71,7 +71,7 @@
         box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.25);
     }
 
-     .event-date-text {
+    .event-date-text {
         /* position: absolute; */
         /* left: 33%;
         bottom: 30%; */
@@ -83,7 +83,7 @@
         /* left: 20%;
         bottom: 10%; */
         transform: translateY(-10px);
-    } 
+    }
 
     .card-title {
         text-decoration: underline;
@@ -129,17 +129,20 @@
     }
 
     .text {
-   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 2; /* number of lines to show */
-   -webkit-box-orient: vertical;
-}
-    .text-limit-description{
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 5; /* number of lines to show */
+        -webkit-line-clamp: 2;
+        /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
+
+    .text-limit-description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        /* number of lines to show */
         -webkit-box-orient: vertical;
 
     }
@@ -233,52 +236,53 @@
 <img class="topright" src="{% static 'images/event/topright.svg' %}" alt="">
 <div class="container-fluid events">
     <h1 class="topic-events">Events:</h1>
-{% endif %}
-
-{% if  forloop.counter == 1 %}
-    <div class="row row1">
     {% endif %}
 
-    {% if  forloop.counter == 5 %}
+    {% if forloop.counter == 1 %}
     <div class="row row1">
-    {% endif %}
+        {% endif %}
 
-        <div class="col-lg-3 col-md-6 events-list">
-            <div class="card">
-                <img style="border-radius: 20px; height: 200px;" src="{{event.first_photo}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <div class="event-date">
-                        <p class="event-date-text"><b> {{event.event_date|date:"M"}}</b></p>
-                        <p class="event-date-text-year">{{event.event_date|date:"W-Y"}}</p>
+        {% if forloop.counter == 5 %}
+        <div class="row row1">
+            {% endif %}
 
-                    </div>
-                    {% if event.organizer.superorganizer %}
-                    <img class="verified" src="{%static 'images/event/verified.svg' %}">
-                    {% endif %}
-                    <h5 class="card-title text">
-                        {{event.name}}
-                    </h5>
-                    <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra pulvinar ac
+            <div class="col-lg-3 col-md-6 events-list">
+                <div class="card">
+                    <img style="border-radius: 20px; height: 200px;" src="{{event.first_photo}}" class="card-img-top"
+                        alt="...">
+                    <div class="card-body">
+                        <div class="event-date">
+                            <p class="event-date-text"><b> {{event.event_date|date:"M"}}</b></p>
+                            <p class="event-date-text-year">{{event.event_date|date:"W-Y"}}</p>
+
+                        </div>
+                        {% if event.organizer.superorganizer %}
+                        <img class="verified" src="{%static 'images/event/verified.svg' %}">
+                        {% endif %}
+                        <h5 class="card-title text">
+                            {{event.name}}
+                        </h5>
+                        <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra pulvinar ac
                         tincidunt id nisi, libero. Turpis amet, sodales cras ornare non adipiscing. Fusce nec sed ipsu
                     </p> -->
-                    <p class="card-text text-limit-description">
-                        {{event.description}}
-                    </p>
-                    <p class="rating"><img class="rating-star" src="{%static 'images/event/star.svg' %}">{{event.total_rating}}</p>
+                        <p class="card-text text-limit-description">
+                            {{event.description}}
+                        </p>
+                        <p class="rating"><img class="rating-star"
+                                src="{%static 'images/event/star.svg' %}">{{event.total_rating}}</p>
 
-                        <a class="learn" href="{% url "events:event_detail" event.pk %}">Learn more
+                        <a class="learn" href="{% url 'events:event_detail' event.pk %}">Learn more
                             <img src="{%static 'images/event/arrow.svg'%}" alt=""></a>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-        {% if  forloop.counter == 4 %}
-        </div>
-        {% endif %}
-        {% if  forloop.counter == 8%}
+            </div>
+            {% if forloop.counter == 4 %}
         </div>
         {% endif %}
-    {% if forloop.counter == 8 %}
+        {% if forloop.counter == 8%}
     </div>
     {% endif %}
-
+    {% if forloop.counter == 8 %}
+</div>
+{% endif %}

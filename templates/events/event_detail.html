@@ -413,6 +413,7 @@
   .review-para {
     font-size: 20px;
   }
+
   .container-grid {
     padding-top: 100px;
     height: 100vh;
@@ -421,6 +422,7 @@
     grid-template-rows: repeat(2, 1fr);
     gap: 2px;
   }
+
   .one {
     grid-column: 1;
     grid-row: 1/3;
@@ -429,6 +431,7 @@
     background-size: cover;
     background-position: center;
   }
+
   .two {
     grid-row: 1/2;
     grid-column: 2;
@@ -436,6 +439,7 @@
     background-size: cover;
     background-position: center;
   }
+
   .three {
     grid-row: 2/3;
     grid-column: 2;
@@ -491,10 +495,7 @@
     <!-- <img class="" src="{{event.first_photo}}" alt=""> -->
   </div>
   <div class="two" style="background-image: url({{event.second_photo}});"></div>
-  <div
-    class="three"
-    style="background-image: url({{event.third_photo}});"
-  ></div>
+  <div class="three" style="background-image: url({{event.third_photo}});"></div>
 </div>
 
 <div class="container-fluid event-details">
@@ -506,36 +507,20 @@
           <p style="color: rgb(148, 148, 148)">
             <b>{{event.address}}, {{event.city}}</b>
           </p>
+          {% if user.is_authenticated %}
           {% on_favs event as on_favs_boolean %} {% if on_favs_boolean %}
-          <a
-            class="fav"
-            style="color: rgb(231, 39, 5)"
-            href="{%url 'lists:toggle-event' event.pk %}?action=remove"
-            >Remove from Favourite</a
-          >
-          <img
-            class="love"
-            src="{% static 'images/event-detail/heart.svg' %}"
-            alt=""
-          />
+          <a class="fav" style="color: rgb(231, 39, 5)"
+            href="{%url 'lists:toggle-event' event.pk %}?action=remove">Remove from Favourite</a>
+          <img class="love" src="{% static 'images/event-detail/heart.svg' %}" alt="" />
           {%else%}
-          <a
-            class="fav"
-            href="{%url 'lists:toggle-event' event.pk %}?action=add"
-            >Save to Favourite</a
-          >
-          <img
-            class="love"
-            src="{% static 'images/event-detail/heart.svg' %}"
-            alt=""
-          />
+          <a class="fav" href="{%url 'lists:toggle-event' event.pk %}?action=add">Save to Favourite</a>
+          <img class="love" src="{% static 'images/event-detail/heart.svg' %}" alt="" />
 
+          {%endif%}
           {%endif%}
         </div>
         <div class="col-md-4 price-div">
-          <p
-            class="price-div-text"
-            style="
+          <p class="price-div-text" style="
               text-align: center;
               transform: translateY(20px);
               background-color: #8646ef;
@@ -543,8 +528,7 @@
               padding: 10px;
               border-radius: 25%;
               color: white;
-            "
-          >
+            ">
             Price: Rs.{{event.price}}
           </p>
         </div>
@@ -559,23 +543,14 @@
           <hr class="dot" />
           <div class="A-circle-size">
             <!-- <span class="A-circle">A</span> -->
-            <a
-              href="{{event.organizer.get_absolute_url}}"
-              style="text-decoration: none"
-            >
+            <a href="{{event.organizer.get_absolute_url}}" style="text-decoration: none">
               {% if user_obj.avatar %}
               <div class="A-image A-circle-size">
-                <img
-                  class="profile-image"
-                  src="{{event.organizer.avatar.url}}"
-                  alt="profile-img"
-                />
+                <img class="profile-image" src="{{event.organizer.avatar.url}}" alt="profile-img" />
               </div>
               {% else %}
               <div class="A-circle-size">
-                <span class="A-circle" style="color: black"
-                  >{{event.organizer.first_name|first}}</span
-                >
+                <span class="A-circle" style="color: black">{{event.organizer.first_name|first}}</span>
               </div>
               {% endif %}
             </a>
@@ -606,10 +581,7 @@
       {% else %}
       <a href="#">
         {% if participated %}
-        <form
-          method="POST"
-          action="{% url 'reservations:view_status' event.id %}"
-        >
+        <form method="POST" action="{% url 'reservations:view_status' event.id %}">
           {% csrf_token %}
           <button type="submit" class="register-button">
             <b>View Registration Status</b>
@@ -652,31 +624,19 @@
       <div class="review-elements">
         <p class="reviews"><b>Reviews:</b></p>
         <p class="star-review-coll">
-          <img
-            class="review-star-img"
-            src="{% static 'images/event-detail/review-star.svg' %}"
-          /><span style="font-weight: bold; font-size: 22px"
-            >{{event.total_rating}} | 10
-            <span style="margin-left: 20px"
-              >Total Review:{{event.reviews.count}}</span
-            >
+          <img class="review-star-img" src="{% static 'images/event-detail/review-star.svg' %}" /><span
+            style="font-weight: bold; font-size: 22px">{{event.total_rating}} | 10
+            <span style="margin-left: 20px">Total Review:{{event.reviews.count}}</span>
           </span>
         </p>
 
         {% for review in event.reviews.all %}
-        <div
-          class="A-circle-size-review"
-          style="display: flex; vertical-align: middle"
-        >
+        <div class="A-circle-size-review" style="display: flex; vertical-align: middle">
           <!-- <span class="A-circle-review">A</span> -->
 
           {% if review.user.avatar %}
           <div class="A-image" style="display: flex; vertical-align: middle">
-            <img
-              class="profile-image"
-              src="{{review.user.avatar.url}}"
-              alt="profile-img"
-            />
+            <img class="profile-image" src="{{review.user.avatar.url}}" alt="profile-img" />
           </div>
           {% else %}
 

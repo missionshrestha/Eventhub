@@ -5,7 +5,7 @@ from django.shortcuts import redirect,reverse
 from . import models
 class SearchForm(forms.Form):
 
-    address = forms.CharField(initial="Anywhere")
+    address = forms.CharField(initial="Anywhere",required=False)
     city = forms.CharField(initial="Anywhere")
     event_type = forms.ModelChoiceField(required=False,empty_label="Any Kind", queryset=models.EventType.objects.all())
     price = forms.IntegerField(required=False)

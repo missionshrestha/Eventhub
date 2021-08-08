@@ -15,21 +15,23 @@ Including another URLconf
 """
 from users import urls
 from django.contrib import admin
-from django.urls import path,include,re_path
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.views.static import serve
-from django.conf.urls.static import static #It helps us serve static file.
+from django.conf.urls.static import static  # It helps us serve static file.
 
 urlpatterns = [
-    path("",include("core.urls",namespace="")),
-    path("events/",include("events.urls",namespace="events")),
-    path("users/",include("users.urls",namespace="users")),
+    path("", include("core.urls", namespace="")),
+    path("events/", include("events.urls", namespace="events")),
+    path("users/", include("users.urls", namespace="users")),
     path("reservations/", include("reservations.urls", namespace="reservations")),
     path("lists/", include("lists.urls", namespace="lists")),
     path("conversations/", include("conversations.urls", namespace="conversations")),
     path('admin/', admin.site.urls),
-    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    re_path(r'^static/(?P<path>.*)$', serve,
+            {'document_root': settings.STATIC_ROOT}),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

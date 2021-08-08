@@ -10,6 +10,7 @@ django-seed = "*"
 django-dotenv = "*"
 requests = "*"
 django-storages = {extras = ["azure"], version = "*"}
+psycopg2 = "*"
 
 [dev-packages]
 autopep8 = "*"

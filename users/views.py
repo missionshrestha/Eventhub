@@ -8,12 +8,12 @@ from django.http.response import HttpResponseRedirectBase
 from django.views import View
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
-from django.views.generic import FormView,DetailView,UpdateView
-from django.shortcuts import render,redirect,reverse
-from django.contrib.auth import authenticate,login,logout
+from django.views.generic import FormView, DetailView, UpdateView
+from django.shortcuts import render, redirect, reverse
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from . import forms,mixins
+from . import forms, mixins
 import users
 
 # Create your views here.
@@ -39,20 +39,21 @@ class LoginView(View):
 
 # implementing using form view
 
-class LoginView(mixins.LoggedOutOnlyView,FormView):
-    
+
+class LoginView(mixins.LoggedOutOnlyView, FormView):
+
     template_name = "users/login.html"
     form_class = forms.LoginForm
     # success_url = reverse_lazy("core:event")
 
-    def form_valid(self,form):
-            email = form.cleaned_data.get("email")
-            password = form.cleaned_data.get("password")
-            user = authenticate(self.request,username=email,password=password)
-            if user is not None:
-                login(self.request,user)
-                messages.success(self.request,f"Welcome Back, {user.first_name}")
-                return super().form_valid(form)
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=email, password=password)
+        if user is not None:
+            login(self.request, user)
+            messages.success(self.request, f"Welcome Back, {user.first_name}")
+            return super().form_valid(form)
 
     def get_success_url(self):
         next_arg = self.request.GET.get("next")
@@ -61,31 +62,33 @@ class LoginView(mixins.LoggedOutOnlyView,FormView):
         else:
             return reverse("core:event")
 
+
 def log_out(request):
-    messages.info(request,f"See you later")
+    messages.info(request, f"See you later")
     logout(request)
     return redirect(reverse("core:home"))
- 
- 
-class SignUpView(mixins.LoggedOutOnlyView,FormView):
-    
+
+
+class SignUpView(mixins.LoggedOutOnlyView, FormView):
+
     template_name = "users/signup.html"
     form_class = forms.SignUpForm
     success_url = reverse_lazy("core:event")
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         form.save()
         email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
-        user = authenticate(self.request,username=email,password=password)
+        user = authenticate(self.request, username=email, password=password)
         if user is not None:
-            login(self.request,user)
-        
+            login(self.request, user)
+
         # user.verify_email()
-        messages.success(self.request,"Verification will not work.")
+        messages.success(self.request, "Verification will not work.")
         return super().form_valid(form)
-    
-def complete_verification(request,key):
+
+
+def complete_verification(request, key):
     try:
         user = models.User.objects.get(email_secret=key)
         user.email_verified = True
@@ -95,9 +98,8 @@ def complete_verification(request,key):
     except models.User.DoesNotExist:
         # failed message here
         pass
-    messages.success(request,"Email Verified")
+    messages.success(request, "Email Verified")
     return redirect(reverse("core:event"))
-    
 
 
 def github_login(self):
@@ -105,21 +107,23 @@ def github_login(self):
     redirect_uri = "http://127.0.0.1:8000/users/login/github/callback"
     return redirect(f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user,user:email")
 
+
 class GithubException(Exception):
     pass
+
 
 def github_callback(request):
     try:
         client_id = os.environ.get("GITHUB_ID")
         client_secret = os.environ.get("GITHUB_SECRET")
-        code = request.GET.get("code","None")
+        code = request.GET.get("code", "None")
         if code is not None:
             token_request = requests.post(
                 f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={code}",
                 headers={"Accept": "application/json"},
             )
             result_json = token_request.json()
-            error = result_json.get("error",None)
+            error = result_json.get("error", None)
             if error is not None:
                 return GithubException("Can't get the access token")
             else:
@@ -141,7 +145,7 @@ def github_callback(request):
                 email_json = email_request.json()
                 profile_json = profile_request.json()
                 # print(profile_json)
-                username = profile_json.get("login",None)
+                username = profile_json.get("login", None)
                 if username is not None:
                     name = profile_json.get("name")
                     email = email_json[0].get("email")
@@ -149,18 +153,19 @@ def github_callback(request):
                     try:
                         user = models.User.objects.get(email=email)
                         if user.login_method != models.User.LOGIN_GITHUB:
-                            raise GithubException (
+                            raise GithubException(
                                 f"Please login with:{user.login_method}"
                             )
                     except models.User.DoesNotExist:
-                        user = models.User.objects.create(username=email,first_name=name,email=email,login_method = models.User.LOGIN_GITHUB,email_verified=True,)
+                        user = models.User.objects.create(
+                            username=email, first_name=name, email=email, login_method=models.User.LOGIN_GITHUB, email_verified=True,)
                         user.set_unusable_password()
                         user.save()
-                    login(request,user)
-                    messages.success(request,f"Welcome Back, {user.first_name}")
+                    login(request, user)
+                    messages.success(
+                        request, f"Welcome Back, {user.first_name}")
                     return redirect(reverse("core:event"))
 
-                    
                     # if user is not None:
                     #     return redirect(reverse("users:login"))
                     # else:
@@ -172,19 +177,20 @@ def github_callback(request):
         else:
             raise GithubException("Can't get code")
     except GithubException as err:
-        messages.error(request,err)
+        messages.error(request, err)
         return redirect(reverse("users:login"))
 
 
 class UserProfileView(DetailView):
 
-    model = models.User    
+    model = models.User
     context_object_name = "user_obj"
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
 
-class UpdateProfileView(mixins.EmailLoginOnlyView,mixins.LogInOnlyView,UpdateView):
+
+class UpdateProfileView(mixins.EmailLoginOnlyView, mixins.LogInOnlyView, UpdateView):
 
     model = models.User
     form_class = forms.UpdateForm
@@ -195,12 +201,11 @@ class UpdateProfileView(mixins.EmailLoginOnlyView,mixins.LogInOnlyView,UpdateVie
     #     "last_name",
     #     "avatar",
     #     "gender",
-    #     "bio",    
+    #     "bio",
     # }
-    
-    def get_object(self,queryset=None):
-        return self.request.user
 
+    def get_object(self, queryset=None):
+        return self.request.user
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
@@ -208,19 +213,22 @@ class UpdateProfileView(mixins.EmailLoginOnlyView,mixins.LogInOnlyView,UpdateVie
             print("yo runvayo")
             self.object.username = email
         self.object.save()
-        messages.success(self.request,"Profile updated")
+        messages.success(self.request, "Profile updated")
         return super().form_valid(form)
 
 
-class UpdatePasswordView(mixins.LogInOnlyView,SuccessMessageMixin,PasswordChangeView):
-    
-    template_name= "users/update-password.html"
+class UpdatePasswordView(mixins.LogInOnlyView, SuccessMessageMixin, PasswordChangeView):
+
+    template_name = "users/update-password.html"
     success_message = "Password Updated"
+
     def get_form(self, form_class=None):
         form = super().get_form(form_class=form_class)
-        form.fields["old_password"].widget.attrs = {"class":"myFieldclass"}
-        form.fields["new_password1"].widget.attrs = {"class":"myFieldclass","onfocus":"closeye()"}
-        form.fields["new_password2"].widget.attrs = {"class":"myFieldclass","onfocus":"closeye()"}
+        form.fields["old_password"].widget.attrs = {"class": "myFieldclass"}
+        form.fields["new_password1"].widget.attrs = {
+            "class": "myFieldclass", "onfocus": "closeye()"}
+        form.fields["new_password2"].widget.attrs = {
+            "class": "myFieldclass", "onfocus": "closeye()"}
         return form
 
     def get_success_url(self):
