@@ -81,8 +81,9 @@ class SignUpView(mixins.LoggedOutOnlyView,FormView):
         if user is not None:
             login(self.request,user)
         
-        user.verify_email()
-        messages.success(self.request,"Verification link sent to your mail.")
+        # user.verify_email()
+        # messages.success(self.request,"Verification link sent to your mail.")
+        messages.success(self.request,"Verification is turned off.")
         return super().form_valid(form)
     
 def complete_verification(request,key):
