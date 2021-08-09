@@ -1,0 +1,469 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_name %}
+Conversation
+{% endblock page_name%}
+
+
+{% block content %}
+
+<style>
+.division{
+    padding-top: 100px;
+    height: 50px;
+  }
+
+.main-division{
+  border: 2px solid black;
+
+  padding-top: 3%;
+  text-align: center;
+  width: 97%;
+margin-bottom: 80px;
+}
+@media only screen and (max-width: 991.5px) {
+  .main-division{
+    border-style: none;
+  }
+}
+
+.left-chat{
+  display: block;
+  margin:auto;
+  text-align: center;
+
+  width: 100%;
+  border: 0.5px solid #C4C4C4;
+  margin-bottom: 30%;
+position: relative;
+padding-top: 50px;
+padding-bottom: 90px;
+
+}
+@media only screen and (max-width: 1200px) {
+  .left-chat{
+    padding-bottom: 10px;
+  }
+}
+
+.logo{
+  padding-top: 10%;
+}
+.logo1{
+  display: inline-block;
+  position: relative;
+  /* right: 50px; */
+  /* padding-left: 100px; */
+
+}
+.and{
+  display: inline-block;
+  position: relative;
+  padding: 0 20px 0 20px;
+  top:25%;
+  /* left:50%; */
+  /*
+  bottom:50%;
+  transform: translate(-50%,50%); */
+  font-size: 50px;
+}
+.logo2{
+  display: inline-block;
+  position: relative;
+  /* left:50px; */
+  /* padding-right: 100px;
+  float: right; */
+}
+
+.name{
+  font-weight: bold;
+font-size: 30px;
+line-height: 50px;
+
+color: #C4C4C4;
+}
+
+.A-circle {
+  /* background: #C4C4C4;
+  color: #fff;
+  padding: 10px 20px;
+  padding-top: 8px;
+  border-radius: 50%;
+  font-size: 35px;
+  font-weight: bold; */
+
+width: 100px;
+line-height: 100px;
+background-color: #c4c4c4;
+color:#fff;
+border-radius: 50%;
+text-align: center;
+font-size: 60px;
+font-weight: bold;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.right-chat{
+  border: 0.5px solid #C4C4C4;
+box-sizing: border-box;
+width: 100%;
+margin-bottom: 20px;
+
+}
+@media only screen and (max-width: 991.5px) {
+  .right-chat{
+    position: relative;
+    bottom: 150px;
+    margin-bottom: -50px;
+
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .right-chat{
+    position: relative;
+    bottom: 100px;
+
+  }
+}
+.overflow{
+  height: 450px;
+  overflow-y:  scroll;
+}
+.block-participant{
+  display: block;
+  text-align: right;
+}
+.participant{
+  max-width: 300px;
+  display: inline-block;
+  text-align: left
+}
+.intro-cont{
+  background: #407BFF;
+border-radius: 20px;
+  color: white;
+  padding: 10px;
+  padding-right: 10px;
+margin-top: -10px;
+  margin-bottom: 20px;
+  text-align: left;
+  word-break: break-all;
+
+}
+
+.name-cont{
+
+  margin-right: 5px;
+  font-weight: bold;
+  text-align: right;
+}
+.block-organizer{
+  display: block;
+  text-align: left;
+}
+.organizer{
+max-width: 300px;
+  display: inline-block;
+  /* margin-right: 60%; */
+text-align: left;
+
+
+
+}
+.intro-org{
+
+  background: #C4C4C4;
+border-radius: 20px;
+  color: white;
+  padding: 10px;
+  padding-right: 10px;
+  margin-bottom: 20px;
+  margin-top: -10px;
+  text-align: left;
+
+
+
+  margin-bottom: 10px;
+
+word-break: break-all;
+}
+
+.name-org{
+
+  /* padding-right: 30%;
+  margin: 0;
+  margin-left: -90px; */
+  font-weight: bold;
+  margin-left: 5px;
+}
+.msg-box{
+
+height: 60px;
+text-align: left;
+background: #FFFFFF;
+border: 0.5px solid #C4C4C4;
+box-sizing: border-box;
+box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+width: 80%;
+line-height: 1.5;
+margin-bottom: 10px;
+font-size: 20px;
+padding-left: 20px;
+float: left;
+position: relative;
+top: 25px;
+}
+.send-icon-img{
+  width: 60px;
+  opacity: 0.8;
+}
+.send-icon-button{
+  background-color: #fff;
+  margin-bottom: 20px;
+  margin-top: 25px;
+  border-style: none;
+  cursor: default;
+}
+.send-icon-button:hover .send-icon-img{
+  opacity: 1;
+}
+
+.profile-image{
+        border-radius: 50%;
+        height: 6.5rem;
+        width: 6.5rem;
+        object-fit: cover;
+    }
+
+.A-image{
+  display: inline-block;
+        border-radius: 50%;
+        /* margin-bottom: 10px; */
+}
+
+</style>
+
+
+<div class="container-fluid division ">
+
+</div>
+
+
+<div class="container main-division">
+<div class="row">
+<div class="col-lg-5">
+  <div class="left-chat">
+
+
+  <h2>Conversation Between:</h3>
+  <div class="container-fluid logo">
+
+    {% for user in conversation.participants.all %}
+      <!-- <div class="A-circle-size A-circle-size-bottom logo1">
+        <div class="A-circle">A</div> -->
+
+        {% if user.avatar %}
+            <div class="A-image">
+                <img class="profile-image" src="{{user.avatar.url}}" alt="profile-img">
+            
+            {% else %}
+            <div class="A-circle-size A-circle-size-bottom logo1">
+                <div class="A-circle">{{user.first_name|first}}</div>
+            
+        {% endif %}
+
+        <p class="name">{{user.first_name}}</p>
+      </div>
+      {% if forloop.first %}
+        <h1 class="and">&</h1>
+        <!-- <span>&</span> -->
+      {%endif%}
+      {%endfor%}
+
+      <!-- <div class="A-circle-size A-circle-size-bottom logo2">
+        <div class="A-circle">S</div>
+        <P class="name">Sokka</P>
+      </div> -->
+
+
+</div>
+</div>
+</div>
+<div class="col-lg-7">
+<div class="right-chat">
+<div class="overflow">
+
+
+
+<div class=" container ">
+  <div class="block-participant">
+
+
+  <div class="participant">
+  <!-- <p class="name-cont">sokka:</p>
+  <div>
+    <div class="intro-cont">a</div>
+  </div> -->
+</div>
+</div>
+</div>
+{% if conversation.messages.count == 0 %}
+<h1>No Conversation Yet</h1>
+{%endif%}
+
+{% for message in conversation.messages.all %}
+    {%if message.user.pk != user.pk %}
+    <div class="container">
+
+        <div class="block-organizer">
+        
+        
+        <div class="organizer">
+          <p class="name-org">{{message.user.first_name}}:</p>
+          <div>
+            <p class="intro-org">{{message.message}}</p>
+          </div>
+        </div>
+        </div>
+        </div>
+    {%else%}
+    <div class=" container-fluid ">
+        <div class="block-participant">
+        <div class="participant">
+        <p class="name-cont">{{message.user.first_name}}:</p>
+        <div>
+          <p class="intro-cont">{{message.message}}</p>
+        </div>
+      </div>
+      </div>
+      </div>
+      {%endif%}
+
+{%endfor%}
+
+
+
+
+<!-- <div class="block-organizer">
+<div class="organizer">
+  <p class="name-org">ABR:</p>
+  <div>
+    <p class="intro-org">.</p>
+  </div>
+</div>
+</div> -->
+
+<!-- <div class="block-organizer">
+<div class="organizer">
+  <p class="name-org">ABR:</p>
+  <div>
+    <p class="intro-org">.</p>
+  </div>
+</div>
+</div> -->
+
+<!-- <div class="block-organizer">
+<div class="organizer">
+  <p class="name-org">ABR:</p>
+  <div>
+    <p class="intro-org">.</p>
+  </div>
+</div>
+</div> -->
+
+<!-- </div> -->
+
+
+
+
+<!-- <div class="block-participant">
+<div class="participant">
+<p class="name-cont">sokka:</p>
+<div>
+  <p class="intro-cont">hi my name is sokkahi my name is sokkahi my name is sokkavvhi my name is sokkahi my name is sokkavhi my name is sokkahi my name is sokka</p>
+</div>
+</div>
+</div> -->
+
+<!-- <div class="block-participant">
+<div class="participant">
+<p class="name-cont">sokka:</p>
+<div>
+<p class="intro-cont">o;ijfljs;ljs;lijdfilsjlifjselifjse;lijfoisejflskfm siljf soiejf soifjsiejfiejf;iejfijweifjweo;ifjew;iofjewiof oije</p>
+</div>
+</div>
+</div> -->
+
+<!-- <div class="block-participant">
+<div class="participant">
+<p class="name-cont">sokka:</p>
+<div>
+<p class="intro-cont">a</p>
+</div>
+</div>
+</div> -->
+
+<!-- <div class="block-participant">
+<div class="participant">
+<p class="name-cont">sokka:</p>
+<div>
+<p class="intro-cont">hi my name is sokkahi my name is sokkahi my name is sokkavvhi my name is sokkahi my name is sokkavhi my name is sokkahi my name is sokka</p>
+</div>
+</div>
+</div> -->
+
+</div>
+
+</div>
+
+<div class="container-fluid">
+<form method="POST">
+    {%csrf_token%}
+    {{form.message}}
+    <!-- <input type="text" class="msg-box" placeholder="Write a message..."> -->
+    <button class="send-icon-button"><img class="send-icon-img" src="{% static 'images/conversation/send-icon.svg' %}"></button>
+    <!-- <button>Submit</button> -->
+</form>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+{%endblock%}

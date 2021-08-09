@@ -15,11 +15,27 @@ def all_events(request):
         return redirect('/events')
 
 '''
+import datetime
+import reviews
+from django.contrib.auth.models import User
 from django.http import Http404
-from django.shortcuts import render
-from django.views.generic import ListView
+from django.shortcuts import render,redirect,reverse
+from django.http import Http404
+from django.views.generic import ListView,UpdateView, CreateView, FormView
 from django.core.paginator import Paginator
+from django.views.generic.base import View
+from django.views.generic.detail import DetailView
+from django.contrib.auth.decorators import login_required
+from users.models import User
+from reservations.models import Reservation
+from reviews.models import Review
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.views.generic.edit import CreateView, FormView
+from users import mixins as user_mixins
 from . import models,forms
+from django.db.models import Q
+
 
 class EventView(ListView):
     
@@ -31,13 +47,59 @@ class EventView(ListView):
     
 
 def event_detail(request,pk):
+    if request.method == "POST":
+        event = models.Event.objects.get(pk = pk)
+        user = request.user
+        review = request.POST["review"]
+        rating = request.POST["rating"]
+        Review.objects.create(review= review, rating = rating, user = user, event = event)
+
+    current = datetime.datetime.now()
+    now = datetime.date(current.year, current.month, current.day)
     try:
+        a = False
         event = models.Event.objects.get(pk=pk)
-        return render(request,"events/event_detail.html",{"event":event})
+        ended = event.event_date > now
+        if request.user.is_authenticated: 
+            reservation = Reservation.objects.filter(user=request.user)
+            for r in reservation:
+                if r.event == event:
+                    a = True
+                    break
+                else:
+                    continue
+        args = {
+            "event":event,
+            "participated": a,
+            "ended": ended
+        }
+        return render(request,"events/event_detail.html", args)
     except models.Event.DoesNotExist:
         raise Http404()
 
-
+def approve(request, pk):
+    event = models.Event.objects.get(pk = pk)
+    participants = Reservation.objects.filter(event = event)
+    if request.method == "POST":
+        if request.POST["button_checker"] != "canceled":
+            user_id = request.POST["user_id"]
+            user = User.objects.get(pk = user_id)
+            update_status = Reservation.objects.get(event = event, user = user)
+            update_status.status = "confirmed"
+            update_status.save()
+        else:
+            u_id = request.POST["u_id"]
+            user = User.objects.get(pk = u_id)
+            update_status = Reservation.objects.get(event = event, user = user)
+            update_status.status = "canceled"
+            update_status.save()
+            
+    args = {
+        "event": event,
+        "participants": participants,
+    }
+    return render(request, "events/approve.html", args)
+    
 def search(request):
     
     city = request.GET.get("city")
@@ -79,9 +141,6 @@ def search(request):
         form = forms.SearchForm()
 
     return render(request, "events/search.html",{"form":form,})
-    
-    
-
 
 
 '''Implementing searching without using django form'''
@@ -122,3 +181,93 @@ def search(request):
     events = models.Event.objects.filter(**filter_args)
     return render(request, "events/search.html",{**form,**choices,"events":events,"price":price,"super_organizer":super_organizer,})
 '''
+
+
+class EditEventView(user_mixins.LogInOnlyView,UpdateView):
+
+    model = models.Event
+    template_name = "events/event_edit.html"
+    form_class =forms.UpdateForm
+    # fields = [
+    # "name",
+    # "description",
+    # "city",
+    # "address", 
+    # "price",
+    # "event_date",
+    # "event_start",
+    # "event_end",
+    # "event_type",
+    # "event_rule", 
+    # ]
+
+    def get_object(self,queryset=None):
+        event = super().get_object(queryset=queryset)
+        if(event.organizer.pk != self.request.user.pk):
+            raise Http404()
+        return event
+
+class EventPhotosView(user_mixins.LogInOnlyView,DetailView):
+    model = models.Event
+    template_name = "events/event_photos.html"
+    
+    def get_object(self,queryset=None):
+        event = super().get_object(queryset=queryset)
+        if(event.organizer.pk != self.request.user.pk):
+            raise Http404()
+        return event
+
+
+@login_required
+def delete_photo(request,event_pk,photo_pk):
+    user = request.user
+    try:
+        event = models.Event.objects.get(pk=event_pk)
+        if event.organizer.pk != user.pk:
+            messages.error(request,"Can't delete that photo")
+        else:
+            models.Photo.objects.filter(pk = photo_pk).delete()
+        return redirect(reverse("events:photos",kwargs={"pk":event_pk}))
+    except models.Event.DoesNotExist:
+        return redirect(reverse("core:home"))
+
+class EditPhotoView(user_mixins.LogInOnlyView, SuccessMessageMixin,UpdateView):
+    
+    model = models.Photo
+    template_name = "events/photo_edit.html"
+    pk_url_kwarg = "photo_pk"
+    success_message = "Photo Updated"
+    fields = (
+        "caption",
+    )
+    
+    def get_success_url(self):
+        event_pk = self.kwargs.get("event_pk")
+        return reverse("events:photos",kwargs={"pk":event_pk})
+
+
+class AddPhotoView(user_mixins.LogInOnlyView,FormView):
+    model = models.Photo
+    template_name = "events/photo_create.html"
+    fields = ["caption","file"]
+    form_class = forms.CreatePhotoForm
+
+    def form_valid(self, form):
+        pk = self.kwargs.get("pk")
+        form.save(pk)
+        messages.success(self.request,"Photo Uploaded")
+        return redirect(reverse("events:photos",kwargs={"pk":pk}))
+
+
+class CreateEventView(user_mixins.LogInOnlyView,FormView):
+    form_class = forms.CreateEventForm
+    template_name = "events/event_create.html"
+
+    def form_valid(self,form):
+        event = form.save()
+        event.organizer = self.request.user
+        event.save()
+        form.save_m2m()
+        messages.success(self.request,"Event Created")
+        return redirect(reverse("events:event_detail",kwargs ={"pk":event.pk}))
+        

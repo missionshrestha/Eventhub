@@ -19,20 +19,19 @@
     .events {
         padding-top: 80px;
         padding-left: 0%;
-        margin-left: 20px;
+        margin-left: 0px;
 
         /* padding-right: 100px; */
     }
 
     .row1 {
         padding-top: 5%;
-        margin-left: 20px;
+        margin-left: 40px;
     }
 
-    /* .topic-events{
-      padding-left: 5%;
-      padding-top: 3%;
-    } */
+    .topic-events{
+      text-align:center;
+    }
 
     /* .events-list{
       padding-left: ;
@@ -40,49 +39,62 @@
     } */
 
     .card {
-        border-radius: 6%;
-        background-color: #3686D1;
+        border-radius: 10px;
+        border: 1px solid black;
+        /* background-color: #3686DA; */
         color: white;
-        width: 18rem;
+        width: 19rem;
+        min-height:500px;
         transition: 0.5s ease;
         cursor: pointer;
-        box-shadow: -20px 30px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: -10px 30px 20px rgba(0, 0, 0, 0.0);
     }
 
     .card:hover {
-        transform: scale(1.05);
-        box-shadow: -20px 30px 20px rgba(0, 0, 0, 0.5);
+        transform: scale(1.03);
+        box-shadow: -20px 30px 20px rgba(0, 0, 0, 0.3);
     }
 
     .event-date {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         border-radius: 100%;
-        background-color: #419CD6;
+        background-color: #E3E0DF;
         height: 100px;
         width: 100px;
         position: absolute;
         left: 30%;
-        bottom: 50%;
-        color: #414141;
-        box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.25);
+        /* bottom: 50%; */
+        top: 140px;
+        color: black;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .event-date-text {
-        position: absolute;
-        left: 33%;
-        bottom: 30%;
-
+     .event-date-text {
+        /* position: absolute; */
+        /* left: 33%;
+        bottom: 30%; */
+        margin-top: 30px;
     }
 
     .event-date-text-year {
-        position: absolute;
-        left: 20%;
-        bottom: 10%;
-    }
+        /* position: absolute; */
+        /* left: 20%;
+        bottom: 10%; */
+        transform: translateY(-10px);
+    } 
 
     .card-title {
-        text-decoration: underline;
+        font-size: 20px;
+        text-decoration: none;
         text-decoration-color: white;
         padding-top: 15%;
+    }
+
+    .card-title:hover {
+        color:#419CD6;
     }
 
     .verified {
@@ -93,11 +105,11 @@
     .learn {
         float: right;
         text-decoration: none;
-        color: white;
+        color: black;
     }
 
     .learn:hover {
-        color: yellow;
+        color: #419CD6;;
     }
 
     .rating {
@@ -226,7 +238,7 @@
 <img class="bottomleft" src="{% static 'images/event/bottomleft.svg' %}" alt="">
 <img class="topright" src="{% static 'images/event/topright.svg' %}" alt="">
 <div class="container-fluid events">
-    <h1 class="topic-events">Events:</h1>
+    <!-- <h1 class="topic-events">Events</h1> -->
 {% endif %}
 
 {% if  forloop.counter == 1 %}
@@ -238,12 +250,29 @@
     {% endif %}
 
         <div class="col-lg-3 col-md-6 events-list">
+            <a href="{% url "events:event_detail" event.pk %}" style="text-decoration: none; color:black">
             <div class="card">
-                <img style="border-radius: 20px; height: 200px;" src="{{event.first_photo}}" class="card-img-top" alt="...">
+                {% if event.first_photo %}
+                    <img style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 200px;" src="{{event.first_photo}}" class="card-img-top" alt="Update your Photo from Update Events">
+                {% else %}
+                    <div style="background-color: darkslategray; height:200px; border-top-left-radius: 10px; border-top-right-radius: 10px; position:relative">
+                        <h5 style="
+                            text-align: center;
+                            color:whitesmoke; 
+                            position: relative;
+                            top:50%;
+                            transform: translateY(-50%);
+                        ">
+                            {{event.name}} <br>
+                            <p style="font-size: 9px; color:whitesmoke">Upload images from Edit Events</p>
+                        </h5>
+                        
+                    </div>
+                {% endif %}
                 <div class="card-body">
                     <div class="event-date">
-                        <p class="event-date-text"><b> {{ forloop.counter }}  May</b></p>
-                        <p class="event-date-text-year">12-2021</p>
+                        <p class="event-date-text"><b> {{event.event_date|date:"M"}}</b></p>
+                        <p class="event-date-text-year">{{event.event_date|date:"W-Y"}}</p>
 
                     </div>
                     {% if event.organizer.superorganizer %}
@@ -252,6 +281,7 @@
                     <h5 class="card-title text">
                         {{event.name}}
                     </h5>
+                    <hr>
                     <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra pulvinar ac
                         tincidunt id nisi, libero. Turpis amet, sodales cras ornare non adipiscing. Fusce nec sed ipsu
                     </p> -->
@@ -264,6 +294,7 @@
                             <img src="{%static 'images/event/arrow.svg'%}" alt=""></a>
                 </div>
             </div>
+            </a>
 
         </div>
         {% if  forloop.counter == 4 %}
@@ -275,3 +306,4 @@
     {% if forloop.counter == 8 %}
     </div>
     {% endif %}
+

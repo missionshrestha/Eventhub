@@ -31,8 +31,7 @@
     }
 
     .navbar-brand:hover {
-        font-weight: bold;
-
+        color:cornflowerblue;
     }
 
     .navbar-logo-img {
@@ -45,11 +44,13 @@
         margin-left: 5px;
     }
 
+    .nav-item-nv {
+        border-radius: 20px;
+        padding:7px;
+        text-decoration:none;
+    }
     .nav-item-nv:hover {
-        margin-left: -8px;
-        font-weight: bold;
-        font-size: 17px;
-
+        background-color: cornflowerblue;
     }
 
     .search {
@@ -60,10 +61,6 @@
         .search {
             width: 300px;
         }
-    }
-
-    .nav-item-nv-aboutus:hover {
-        margin-left: -9.5px;
     }
 
     .navbar-profile-img {
@@ -100,7 +97,7 @@
     .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #FEFFEC;
+        background-color: cornflowerblue;
         min-width: 100px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
@@ -108,8 +105,8 @@
 
     /* Links inside the dropdown */
     .dropdown-content a {
+        color:white;
         float: none;
-        color: black;
         padding: 12px 16px;
         text-decoration: none;
         display: block;
@@ -130,7 +127,7 @@
 <nav class="navbar navbar-expand-lg navbar-light ">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="#"><img class="navbar-logo-img" src="{% static 'images/event/favicon1.svg'%}" alt="" width="55"
+        <a class="navbar-brand" href="{% url "core:event" %}"><img class="navbar-logo-img" src="{% static 'images/event/favicon1.svg'%}" alt="" width="55"
                 height="46">EVENTHUB</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,21 +136,37 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-                <form class=" search d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search by City" aria-label="Search">
+                <form class="search d-flex" method="get" action="{% url 'events:search' %}">
+                    <input class="form-control me-2" name="city" placeholder="Search by city" aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 <li class="nav-item">
-                    <a class="nav-item-nv nav-item-nv-aboutus nav-link " href="#">ABOUT US</a>
+                    <a class="nav-item-nv nav-item-nv-aboutus nav-link " href="{% url 'events:create' %}">Create Event</a>
+                <!-- <form class=" search d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search by City" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+                
+                <li class="nav-item">
+                    <a class="nav-item-nv nav-item-nv-aboutus nav-link " href="{% url 'lists:see-favs' %}">Favourite</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item-nv nav-item-nv-events nav-link " href="#">EVENTS</a>
+                    <a class="nav-item-nv nav-item-nv-events nav-link " href="{% url "core:event" %}">View Events</a>
+                </li>
+                <li class="nav-item nav-item-1">
+                    <a class="nav-item-nv nav-link" href="{% url "core:aboutus" %}">About us</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="navbar-profile-img" href="#"><img src="{% static 'images/event/profile.svg' %}" alt="" width="40px"
-                            height="auto"></a>
-                </li>
+                    <a class="navbar-profile-img" href="{{user.get_absolute_url}}">
+                        {% if user.avatar %}
+                            <img style="border-radius: 50%; z-index: 10000;" src="{{user.avatar.url}}" alt="{{user.first_name}}'s avatar" width="40px" height="40px">
+                        {% else %}
+                        <img src="{% static 'images/event/profile.svg' %}" alt="" width="40px"
+                            height="auto">
+                        {% endif %}
+                        </a>
+                        </li>
                 <li>
                     <div class="dropdown">
                         <button class="dropbtn">
@@ -179,7 +192,7 @@
     .navbar {
         z-index: 1000;
         background-color: #FEFFEC;
-        /* position:fixed; */
+        position:fixed;
         width: 100%;
     }
 
@@ -328,10 +341,10 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
 
                 <li class="nav-item nav-item-1">
-                    <a class="nav-item-nv nav-link " href="#">ABOUT US</a>
+                    <a class="nav-item-nv nav-link " href="{% url "core:aboutus" %}">About us</a>
                 </li>
                 <li class="nav-item nav-item-2">
-                    <a class="nav-item-nv nav-link " href="{% url "core:event" %}">EVENTS</a>
+                    <a class="nav-item-nv nav-link " href="{% url "core:event" %}">Events</a>
                 </li>
                 <li class="nav-item nav-item-3">
                     <a class="nav-item-nv nav-link" href="{% url "users:signup" %}">JOIN</a>

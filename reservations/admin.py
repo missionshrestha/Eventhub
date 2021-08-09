@@ -6,6 +6,6 @@ from . import models
 class Reservation(admin.ModelAdmin):
     """Reservation Admin Defination"""
 
-    list_display = ("event","status")
+    list_display = ("user", "event", "status")
 
     list_filter = ("status",)

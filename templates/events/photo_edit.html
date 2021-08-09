@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page_name %}
+    Update Photo 
+{% endblock page_name %}
+
+{% block search-bar %}
+
+{% endblock search-bar %}
+
+{% block content %}
+
+
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Muli&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Muli", sans-serif;
+}
+
+.container-main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 88.2vh;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  /* overflow-y: scroll ; */
+}
+
+.mini-container{
+  display:flex;
+  width:100%;
+  justify-content:space-between;
+  padding:20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius:10px;
+  margin-bottom: 20px;
+}
+
+.caption{
+  /* margin-left:15px; */
+  /* float:right; */
+  font-family: 'Montserrat', sans-serif;
+  font-weight:500;
+}
+
+.btn-photo{
+  width:9rem;
+  border:none;
+  color:white;
+  padding:10px;
+  border-radius:12px;
+}
+
+
+
+@media only screen and (max-width: 650px) {
+  .cross{
+    position: absolute;
+    right: 4rem;
+    top: 6rem;
+  }
+}
+
+</style>
+
+<div class="container-main">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mini-container">
+      <div class="together">
+        <span class="caption">Edit Caption:</span>
+        <br />
+        {{form.caption}}
+      </div>
+    </div>
+      <div style="display: flex;">
+      <button class="btn-photo" style="background-color:dodgerblue;">Update Caption</button>
+    </div> 
+    </form>
+</div>
+
+<script>
+ 
+</script>
+    {% endblock %}

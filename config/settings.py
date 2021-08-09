@@ -37,8 +37,8 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-PROJECT_APPS =[
-    "core.apps.CoreConfig","users.apps.UsersConfig","events.apps.EventsConfig","reviews.apps.ReviewsConfig","reservations.apps.ReservationsConfig","lists.apps.ListsConfig","conversations.apps.ConversationsConfig",
+PROJECT_APPS = [
+    "core.apps.CoreConfig", "users.apps.UsersConfig", "events.apps.EventsConfig", "reviews.apps.ReviewsConfig", "reservations.apps.ReservationsConfig", "lists.apps.ListsConfig", "conversations.apps.ConversationsConfig",
 ]
 
 THIRD_PARTY_APPS = ["django_seed"]
@@ -135,14 +135,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.User"
 
-MEDIA_ROOT = BASE_DIR.joinpath('uploads')   # for the upload that we do on the project
+# for the upload that we do on the project
+MEDIA_ROOT = BASE_DIR.joinpath('uploads')
 
-MEDIA_URL = "/media/" #requires absolute path ( so forward slash) # we are connecting the directory uploads with the media
+# requires absolute path ( so forward slash) # we are connecting the directory uploads with the media
+MEDIA_URL = "/media/"
 
 # email configuration
-
 EMAIL_HOST = "smtp.mailgun.org"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
-EMAIL_FROM = "eventhub@sandbox1975be6af6b44f489ce7a43e358600ee.mailgun.org"
+EMAIL_FROM = "event-hub@sandbox1975be6af6b44f489ce7a43e358600ee.mailgun.org"
+
+# Auth
+LOGIN_URL = "/users/login"

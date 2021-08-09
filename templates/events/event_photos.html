@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page_name %}
+    {{event.name}}'s Photos 
+{% endblock page_name %}
+
+{% block search-bar %}
+
+{% endblock search-bar %}
+
+{% block content %}
+
+
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Muli&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Muli", sans-serif;
+}
+
+footer{
+  display: none;
+}
+.container-main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+  padding-top: 100px;
+  padding-bottom: 50px;
+  overflow-y: scroll ;
+}
+
+.mini-container{
+  display:flex;
+  width:75%;
+  justify-content:space-between;
+  padding:20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius:10px;
+  margin-bottom: 20px;
+}
+
+.caption{
+  margin-left:15px;
+  float:right;
+  font-family: 'Montserrat', sans-serif;
+  font-weight:500;
+}
+.image-event{
+  height:80px;
+  width:100px;
+}
+.two-button{
+  display:flex;
+  flex-direction:column;
+  align-self: center;
+}
+.btn-photo{
+  width:9rem;
+  border:none;
+  color:white;
+  padding:10px;
+  border-radius:12px;
+}
+.btn-photo-edit{
+  background-color:tomato;
+}
+.btn-photo-delete{
+  margin-top:8px;
+  background-color:black;
+}
+
+
+@media only screen and (max-width: 650px) {
+  .cross{
+    position: absolute;
+    right: 4rem;
+    top: 6rem;
+  }
+}
+
+</style>
+<div class="container-main">
+  {%for photo in event.photos.all %}
+  <div class="mini-container">
+    <div class="together">
+      <img class="image-event" src="{{photo.file.url}}" alt="" >
+      <span class="caption">{{photo.caption}}</span>
+    </div>
+    <div class="two-button">
+      <a href="{% url 'events:edit-photo' event.pk photo.pk %}"><button class="btn-photo btn-photo-edit">Edit</button></a>
+      <a href="{% url 'events:delete-photo' event.pk photo.pk %}"><button class="btn-photo btn-photo-delete">Delete</button></a>
+    </div>
+  </div>
+  {% endfor %}
+  <div style="display: flex;">
+        <a href="{% url 'events:add-photo' event.pk %}"><button class="btn-photo" style="background-color:dodgerblue;">Upload photo</button></a>
+        
+        <a href="{% url 'events:edit' event.pk %}"><button class="btn-photo" style="background-size: white;
+        color: black; border: 1px solid dodgerblue; margin-left: 30px;
+        width: 180px;">Back to event edit</button></a>
+  </div>
+</div>
+
+<script>
+ 
+</script>
+    {% endblock %}
