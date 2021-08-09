@@ -445,7 +445,8 @@
 
   .profile-image {
     border-radius: 50%;
-    height: 5rem;
+    height: 4rem;
+    width:4rem;
   }
 
   .A-image {
@@ -590,7 +591,6 @@
           <h3 class="event-head">Events Details:</h3>
           <hr class="dot">
           {% if ended %}
-          <hr class="dot" />
           <p class="event-specific">Date : {{event.event_date}}</p>
           <p class="event-specific">Start Time: {{event.event_start}}</p>
           <p class="event-specific">End Time: {{event.event_end}}</p>

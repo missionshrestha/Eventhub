@@ -22,10 +22,12 @@
         text-align: center;
         overflow: hidden;
         width: 50%;
+        border:1px solid black;
         box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
         position: relative;
         padding-top: 40px;
         padding-bottom: 20px;
+        border-radius: 8px;
     }
 
     /*/*.profile-logo{
@@ -50,6 +52,7 @@
     .profile-image{
         border-radius: 50%;
         height: 5rem;
+        width:5rem;
     }
 
     .A-image{
@@ -85,7 +88,7 @@
         margin-bottom: 2%;
         opacity: 0.9;
         color: white;
-        width: 70%;
+        width: 40%;
         height: 49px;
         border-radius: 25px;
 
@@ -132,7 +135,7 @@
 
 
 
-        <h3 class="profile-name">{{user_obj.first_name}} {% if user_obj.superorganizer %} <img class="verified-blue" src="{% static 'images/user-detail/verified-sign.svg' %}">{% endif %}</h3>
+        <h3 class="profile-name">{{user_obj.first_name}} {{user_obj.last_name}} {% if user_obj.superorganizer %} <img class="verified-blue" src="{% static 'images/user-detail/verified-sign.svg' %}">{% endif %}</h3>
         {% if user == user_obj %}
         <a href="{% url 'users:update' %}">
             <button type="button" class=" button-edit">

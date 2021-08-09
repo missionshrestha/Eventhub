@@ -252,7 +252,23 @@
         <div class="col-lg-3 col-md-6 events-list">
             <a href="{% url "events:event_detail" event.pk %}" style="text-decoration: none; color:black">
             <div class="card">
-                <img style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 200px;" src="{{event.first_photo}}" class="card-img-top" alt="Update your Photo from Update Events">
+                {% if event.first_photo %}
+                    <img style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 200px;" src="{{event.first_photo}}" class="card-img-top" alt="Update your Photo from Update Events">
+                {% else %}
+                    <div style="background-color: darkslategray; height:200px; border-top-left-radius: 10px; border-top-right-radius: 10px; position:relative">
+                        <h5 style="
+                            text-align: center;
+                            color:whitesmoke; 
+                            position: relative;
+                            top:50%;
+                            transform: translateY(-50%);
+                        ">
+                            {{event.name}} <br>
+                            <p style="font-size: 9px; color:whitesmoke">Upload images from Edit Events</p>
+                        </h5>
+                        
+                    </div>
+                {% endif %}
                 <div class="card-body">
                     <div class="event-date">
                         <p class="event-date-text"><b> {{event.event_date|date:"M"}}</b></p>
