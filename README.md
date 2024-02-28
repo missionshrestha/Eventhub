@@ -26,7 +26,7 @@ EventHub benefits a particular organization with multiple sub-groups to manage a
 Clone the project
 
 ```bash
-  git clone https://github.com/kamal0620040/Eventhub.git
+  git clone https://github.com/missionshrestha/Eventhub.git
 ```
 
 Go to the project directory
